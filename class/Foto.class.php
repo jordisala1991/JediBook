@@ -1,5 +1,5 @@
 <?php
-
+include_once 'JediBookException.class.php';
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -61,8 +61,8 @@ class Foto {
     }
     
     function setId($id){
-        if(is_int($id) && $id > 0) $this->id = $id;
-        //else 
+        if(!is_int($id) || $id <= 0) throw new JediBookException("id foto incorrecte");
+        else $this->id = $id;
     }
     
     function setDescripcio($decripcio){
