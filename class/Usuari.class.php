@@ -1,5 +1,7 @@
 <?php
 include_once 'JediBookException.class.php';
+include_once 'JediBookBD.class.php';
+include_once 'Foto.class.php';
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -84,7 +86,7 @@ class Usuari {
     }
     
     function setPass($pass){
-        if(strlen($pass) < 5 || strlen($pass) > 12 || !preg_match("/^[0-9a-zA-Z]+$/",$pass)) throw new JediBookException("Password incorrecte");
+        if(strlen($pass) < 5 || strlen($pass) > 30 || !preg_match("/^[0-9a-zA-Z]+$/",$pass)) throw new JediBookException("Password incorrecte");
         else $this->pass = $pass;
     }
     
@@ -109,7 +111,12 @@ class Usuari {
     
     function setFotos($fotos){
         if(!is_array($fotos)) throw new JediBookException("fotos incorrectes");
-        else $this->fotos = $fotos;
+        else {
+            for ($i = 0;$i < count($fotos);$i++) {
+               if(!($fotos[$i] instanceof Comentari)) throw new JediBookException("no son fotos");
+           }
+           $this->fotos = $fotos;
+        }    
     }
     
     function setAmics($amics){

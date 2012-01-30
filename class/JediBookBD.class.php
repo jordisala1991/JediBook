@@ -38,7 +38,7 @@ class JediBookBD {
     
     function close() {
         mysql_close($this->idConnection);
-    }
+    }        
 }
 
 ?>

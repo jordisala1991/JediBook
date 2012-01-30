@@ -1,9 +1,11 @@
 <?php
 include_once 'JediBookException.class.php';
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+include_once 'JediBookBD.class.php';
+include_once 'Comentari.class.php';
+include_once 'Usuari.class.php';
+
+define("TAM_MAX_TEXT", 300);
+define("TAM_MIN_TEXT", 3);
 
 /**
  * Description of Foto
@@ -20,6 +22,7 @@ class Foto {
     protected $votsKO;
     protected $comentaris;
     protected $usuari;
+    
 
 
     function __construct($id, $decripcio, $foto, $data, $votsOK, $votsKO, $comentaris) {
@@ -73,11 +76,12 @@ class Foto {
     
     function setDescripcio($decripcio){
         if(!is_string($decripcio)) throw new JediBookException("descripcio incorrecta");
+        ///de quan pot ser la descripcio????
         else $this->descripcio = $decripcio;
     }
     
     function setFoto($foto){
-        
+        //com es comprova lo de la foto?? al formulari s'ha d'assignar una foto x defecte si no la introdueixen 
     }
     
     function setData($data){
@@ -115,6 +119,10 @@ class Foto {
         ++$this->votsKO;
     }
     
+    function save(){
+        $bd = new JediBookBD();
+        
+    }
     
     
     
