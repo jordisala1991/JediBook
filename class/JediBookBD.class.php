@@ -26,6 +26,8 @@ class JediBookBD {
         mysql_connect($host, $user, $pass); 
     }
     
+    
+    
 }
 
 ?>
