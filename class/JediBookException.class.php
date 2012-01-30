@@ -8,7 +8,7 @@
 /**
  * Description of JediBookException
  *
- * @author elena_gratallops
+ * @author elena
  */
 class JediBookException extends Exception{
     //put your code here

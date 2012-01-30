@@ -73,29 +73,34 @@ class Usuari {
     }
 
 
-
     function setId($id){
-        $this->id = $id;
+        if(!is_int($id) || $id <= 0) throw new JediBookException("id Usuari incorrecte");
+        else $this->id = $id;
     }
     
     function setUserName($userName){
-        
+        if(!is_string($userName) || strlen($userName) < 3 || strlen($userName) >= 30) throw new JediBookException("username incorrecte");
+        else $this->userName = $userName;
     }
     
     function setPass($pass){
-        
+        if(strlen($pass) < 5 || strlen($pass) > 12 || !preg_match("/^[0-9a-zA-Z]+$/",$pass)) throw new JediBookException("Password incorrecte");
+        else $this->pass = $pass;
     }
     
     function setEmail($email){
-        
+        if(!filter_var($e, FILTER_VALIDATE_EMAIL)) throw new JediBookException("email incorrecte");
+        else $this->email = $email;
     }
     
     function setSexe($sexe){
-       
+        if(!is_bool($sexe))throw new JediBookException("sexe incorrecte");
+        else $this->sexe = $sexe;
     }
     
     function setProvincia($provincia){
-        
+        if(!is_string($provincia)) throw new JediBookException("provincia incorrecta");
+        else $this->provincia = $provincia;
     }
     
     function setFotoPerfil($fotoPerfil){
@@ -103,12 +108,28 @@ class Usuari {
     }
     
     function setFotos($fotos){
-        
+        if(!is_array($fotos)) throw new JediBookException("fotos incorrectes");
+        else $this->fotos = $fotos;
     }
     
     function setAmics($amics){
-        
+        if(!is_array($amics)) throw new JediBookException("amcis incorrectes");
+        else {
+           for ($i = 0;$i < count($amics);$i++) {
+               if(!($amics[$i] instanceof Comentari)) throw new JediBookException("no son amics");
+           }
+           $this->amics = $amics;
+        }
     }
+    
+    /*function ferteAmic(){
+         
+    }
+    
+    function acceptarAmic($nouAmic){
+        if(!($nouAmic instanceof Usuari)) throw new JediBookException("es un amic k no es usuari");
+        else array_push($this->amics, $nouAmic);
+    }*/
     
     
     

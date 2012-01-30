@@ -19,6 +19,7 @@ class Foto {
     protected $votsOK;
     protected $votsKO;
     protected $comentaris;
+    protected $usuari;
 
 
     function __construct($id, $decripcio, $foto, $data, $votsOK, $votsKO, $comentaris) {
@@ -60,13 +61,19 @@ class Foto {
         return $this->comentaris;
     }
     
+    function getUsuari(){
+        return $this->usuari;
+    }
+
+
     function setId($id){
         if(!is_int($id) || $id <= 0) throw new JediBookException("id foto incorrecte");
         else $this->id = $id;
     }
     
     function setDescripcio($decripcio){
-        
+        if(!is_string($decripcio)) throw new JediBookException("descripcio incorrecta");
+        else $this->descripcio = $decripcio;
     }
     
     function setFoto($foto){
@@ -78,16 +85,39 @@ class Foto {
     }
     
     function setVotsOK($votsOK){
-        
+        if(!is_int($votsOK) || $votsOK <= 0) throw new JediBookException("votsOK incorrectes");
+        else $this->votsOK = $votsOK;
     }
     
     function setVotsKO($votsKO){
-        
+        if(!is_int($votsKO) || $votsKO <= 0) throw new JediBookException("votsKO incorrectes");
+        else $this->votsKO = $votsKO;
     }
     
     function setComentaris($comentaris){
-        
+       if(!is_array($comentaris)) throw new JediBookException("comentaris incorrectes");
+       else {
+           for ($i = 0;$i < count($comentaris);$i++) if(!($comentaris[$i] instanceof Comentari)) throw new JediBookException("no son comentaris");
+       }
+       $this->comentaris = $comentaris;
     }
+    
+    function setUsuari($usuari) {
+        if($usuari instanceof Usuari) $this->usuari = $usuari;
+        else throw new JediBookException("usuar incorrecte");
+    }
+    
+    function incrementaVotsOK(){
+        ++$this->votsOK;
+    }
+    
+    function incrementaVotsKO(){
+        ++$this->votsKO;
+    }
+    
+    
+    
+    
 }
 
 ?>
