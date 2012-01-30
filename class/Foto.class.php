@@ -4,8 +4,8 @@ include_once 'JediBookBD.class.php';
 include_once 'Comentari.class.php';
 include_once 'Usuari.class.php';
 
-define("TAM_MAX_TEXT", 300);
-define("TAM_MIN_TEXT", 3);
+define("TAM_MAX_DESCRIPCIO", 300);
+define("TAM_MIN_DECRIPCIO", 3);
 
 /**
  * Description of Foto
@@ -76,7 +76,10 @@ class Foto {
     
     function setDescripcio($decripcio){
         if(!is_string($decripcio)) throw new JediBookException("descripcio incorrecta");
-        ///de quan pot ser la descripcio????
+        if (strlen($decripcio) > TAM_MAX_DESCRIPCIO)
+            throw new JediBookException("la descripcio te un tamany superior a ".TAM_MAX_DESCRIPCIO);
+        if (strlen($decripcio) < TAM_MIN_DECRIPCIO)
+            throw new JediBookException("la descripcio te un tamany inferior a ".TAM_MIN_DECRIPCIO);
         else $this->descripcio = $decripcio;
     }
     
@@ -102,8 +105,9 @@ class Foto {
        if(!is_array($comentaris)) throw new JediBookException("comentaris incorrectes");
        else {
            for ($i = 0;$i < count($comentaris);$i++) if(!($comentaris[$i] instanceof Comentari)) throw new JediBookException("no son comentaris");
+           $this->comentaris = $comentaris;
        }
-       $this->comentaris = $comentaris;
+       
     }
     
     function setUsuari($usuari) {

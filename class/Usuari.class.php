@@ -87,8 +87,7 @@ class Usuari {
     
     function setPass($pass){
         if(strlen($pass) < 5 || strlen($pass) > 30 || !preg_match("/^[0-9a-zA-Z]+$/",$pass)) throw new JediBookException("Password incorrecte");
-        else $this->pass = $pass;
-        ///s'ha d'encriptar aqui?????
+        else $this->pass = md5 ($pass);
     }
     
     function setEmail($email){
