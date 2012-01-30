@@ -31,7 +31,17 @@ class JediBookBD {
         return $res;
     }
     
-    function allSQL($query){
+    function insertSQL($query) {
+        mysql_query($query, $this->idConnection);
+        return mysql_insert_id($this->idConnection);        
+    }
+    
+    function updateSQL($query) {
+        mysql_query($query, $this->idConnection);
+        return mysql_affected_rows($this->idConnection);        
+    }
+    
+    function deleteSQL($query){
         mysql_query($query, $this->idConnection);
         return mysql_affected_rows($this->idConnection);
     }
