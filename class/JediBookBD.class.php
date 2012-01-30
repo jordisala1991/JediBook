@@ -8,10 +8,24 @@
 /**
  * Description of JediBookBD
  *
- * @author elena_gratallops
+ * @author elena i jordi 
  */
 class JediBookBD {
-    //put your code here
+    protected $idConnection;
+    protected $user;
+    protected $pass;
+    protected $db;
+    protected $host;
+    
+    
+    function __construct($host, $user, $pass, $db) {
+        $this->db = $db;
+        $this->host = $host;
+        $this->pass = $pass;
+        $this->user = $user;
+        mysql_connect($host, $user, $pass); 
+    }
+    
 }
 
 ?>
