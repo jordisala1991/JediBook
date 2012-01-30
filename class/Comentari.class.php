@@ -1,7 +1,9 @@
 <?php
 
 include_once "JediBookException.class.php";
+include_once "JediBookBD.class.php";
 include_once "Usuari.class.php";
+include_once "Foto.class.php";
 
 define("TAM_MAX_TEXT", 300);
 define("TAM_MIN_TEXT", 3);
@@ -16,12 +18,14 @@ class Comentari {
     protected $text;
     protected $data;
     protected $usuari;
+    protected $foto;
 
-    function __construct($id, $text, $data, $usuari) {
+    function __construct($id, $text, $data, $usuari, $foto) {
         $this->setId($id);
         $this->setText($text);
         $this->setData($data);
         $this->setUsuari($usuari);
+        $this->setFoto($foto);
     }
 
     function getId() {
@@ -29,7 +33,7 @@ class Comentari {
     }
 
     function setId($id) {
-        if (!is_int($id)) throw new JediBookException("id no és un enter");
+        if (!is_int($id) and isset($id)) throw new JediBookException("id no és un enter");
         if ($id < 0) throw new JediBookException("id no és positiu");
         $this->id = $id;
     }
@@ -63,6 +67,46 @@ class Comentari {
         if (!($usuari instanceof Usuari))
             throw new JediBookException("usuari no es un objecte de la classe Usuari");
         $this->usuari = $usuari;
+    }
+    
+    function getFoto() {
+        return $this->foto;
+    }
+    
+    function setFoto($foto) {
+        if (!($foto instanceof Foto))
+            throw new JediBookException("foto no es un objecte de la clase Foto");
+        $this->foto = $foto;
+    }
+    
+    function save() {
+        if (!isset($this->usuari->getId())) $this->usuari->save();
+        if (!isset($this->foto->getId())) $this->foto->save();
+        $query = "INSERT INTO `phpbasic`.`comentaris`(`id`,`text`,`data`,`id_usuari`,`id_foto`)
+                 VALUES (NULL, {$this->text}, {$this->data}, {$this->usuari->getId()}, {$this->foto->getId()})";
+        if (isset($this->id))
+            throw new JediBookException("el comentari ja esta a la bd");
+        else {
+            $db = new JediBookBD("localhost", "root", "", "phpbasic");
+            $this->id = $db->insertSQL($query);
+            $bd->close();
+        }
+    }
+    
+    function update() {
+        if (!isset($this->id)) 
+            throw new JediBookException("el comentari no esta a la bd");
+        else {
+            //
+        }
+    }
+    
+    function delete() {
+        if (!isset($this->id))
+            throw new JediBookException("el comentari no esta a la bd");
+        else {
+            //
+        }
     }
 }
 
