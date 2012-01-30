@@ -21,11 +21,11 @@ class Usuari {
     protected $sexe;
     protected $provincia;
     protected $fotoPerfil;
-    protected $fotos;
-    protected $amics;
+    //protected $fotos;
+   // protected $amics;
 
 
-    function __construct() {
+    function __construct($id, $userName, $pass, $email, $sexe, $provincia, $fotoPerfil/*, $fotos, $amics*/) {
         $this->setId($id);
         $this->setUserName($userName);
         $this->setPass($pass);
@@ -33,8 +33,8 @@ class Usuari {
         $this->setSexe($sexe);
         $this->setProvincia($provincia);
         $this->setFotoPerfil($fotoPerfil);
-        $this->setFotos($fotos);
-        $this->setAmics($amics); 
+       // $this->setFotos($fotos);
+       // $this->setAmics($amics); 
     }
 
 

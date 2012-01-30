@@ -13,7 +13,7 @@ define("TAM_MIN_DECRIPCIO", 3);
  * @author elena
  */
 class Foto {
-    //put your code here
+   
     protected $id;
     protected $descripcio;
     protected $foto;
@@ -22,10 +22,8 @@ class Foto {
     protected $votsKO;
     protected $comentaris;
     protected $usuari;
-    
 
-
-    function __construct($id, $decripcio, $foto, $data, $votsOK, $votsKO, $comentaris) {
+    function __construct($id, $decripcio, $foto, $data, $votsOK, $votsKO, $comentaris, $usuari) {
         $this->setId($id);
         $this->setDescripcio($decripcio);
         $this->setFoto($foto);
@@ -33,6 +31,7 @@ class Foto {
         $this->setVotsOK($votsOK);
         $this->setVotsKO($votsKO);
         $this->setComentaris($comentaris);
+        $this->setUsuari($usuari);
     }
 
 
@@ -85,10 +84,12 @@ class Foto {
     
     function setFoto($foto){
         //com es comprova lo de la foto?? al formulari s'ha d'assignar una foto x defecte si no la introdueixen 
+        if(!is_string($foto)) throw new JediBookException("ruta foto icorrecte");
+        else $this->foto = $foto;
     }
     
     function setData($data){
-        
+        $this->data = $data;
     }
     
     function setVotsOK($votsOK){
