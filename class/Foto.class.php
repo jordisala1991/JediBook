@@ -69,7 +69,7 @@ class Foto {
 
 
     function setId($id){
-        if(!is_int($id) || $id <= 0) throw new JediBookException("id foto incorrecte");
+        if(!is_int($id) || $id <= 0 || isset($id)) throw new JediBookException("id foto incorrecte");
         else $this->id = $id;
     }
     
