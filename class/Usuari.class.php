@@ -21,20 +21,28 @@ class Usuari {
     protected $sexe;
     protected $provincia;
     protected $fotoPerfil;
-    //protected $fotos;
+    protected $fotos;
     protected $amics;
 
 
-    function __construct($id, $userName, $pass, $email, $sexe, $provincia, $fotoPerfil/*, $fotos, $amics*/) {
-        $this->setId($id);
-        $this->setUserName($userName);
-        $this->setPass($pass);
-        $this->setEmail($email);
-        $this->setSexe($sexe);
-        $this->setProvincia($provincia);
-        $this->setFotoPerfil($fotoPerfil);
-       // $this->setFotos($fotos);
-       // $this->setAmics($amics); 
+    function __construct() {
+        $aux = func_get_args();
+        if(func_num_args() == 1) {
+            $this->setId($aux[0]);
+            $this->_load();
+        }
+        else if(func_num_args() == 6){
+            $this->setId(NULL);
+            $this->setUserName($aux[0]);
+            $this->setPass($aux[1]);
+            $this->setEmail($aux[2]);
+            $this->setSexe($aux[3]);
+            $this->setProvincia($aux[4]);
+            $this->setFotoPerfil($aux[5]);
+            $this->setFotos(array());
+            $this->setAmics(array());
+        }
+        else throw new JediBookException("num parametres incorrecte");
     }
 
 
@@ -180,6 +188,31 @@ class Usuari {
             $nouAmic->afegirAmic($this);
         }
     }*/
+    
+    function _load(){
+        $query = "SELECT * FROM `phpbasic`.`usuari` WHERE `id`='{$this->id}'";
+        $db = new JediBookBD("localhost", "root", "", "phpbasic");
+        $var = $db->selectSQL($query);
+        $db->close();
+        if($var === array()) throw new JediBookException("no hi ha usuari amb aquest id");
+        else {
+            $this->setUserName($var[0]['username']);
+            $this->pass = $var[0]['pass'];
+            $this->setEmail($var[0]['email']);
+            $this->setSexe($var[0]['sexe']);
+            $this->setProvincia($var[0]['provincia']);
+            $this->setFotoPerfil($var[0]['foto']);
+            $query = "SELECT `id` FROM `phpbasic`.`foto` WHERE `id_usuari`='{$this->id}'";
+            $q = "SELECT `id_amic` FROM `phpbasic`.`amics` WHERE `id_usuari`='{$this->id}'";
+            $db = new JediBookBD("localhost", "root", "", "phpbasic");
+            $ids = $db->selectSQL($query);
+            $fot = $db->selectSQL($query);
+            $db->close();
+            foreach ($ids as $i) $this->fotos[] = new Foto($i['id']);
+            foreach ($fot as $f) $this->amics[] = new Usuari($f['id']);
+            
+        }
+    }
     
     
     
