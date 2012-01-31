@@ -28,14 +28,14 @@ class Foto {
             $this->setId($aux[0]);
             $this->_load();
         }
-        else if(func_num_args() == 3){
-            $this->setId(NULL);
-            $this->setDescripcio($aux[0]);
-            $this->setFoto($aux[1]);
-            $this->setData($aux[2]);
-            $this->setVotsOK(0);
-            $this->setVotsKO(0);
-            $this->setUsuari(new Usuari((int)$aux[3]));
+        else if(func_num_args() == 7){
+            $this->setId($aux[0]);
+            $this->setDescripcio($aux[1]);
+            $this->setFoto($aux[2]);
+            $this->setData($aux[3]);
+            $this->setVotsOK($aux[4]);
+            $this->setVotsKO($aux[5]);
+            $this->setUsuari(new Usuari((int)$aux[6]));
         }
         else throw new JediBookException("num parametres incorrecte");
     }

@@ -53,7 +53,13 @@ class JediBookBD {
         for ($i = 0; $i < sizeof($res)-1; $i++) $aux .= " '".$res[$i]['id_amic']."',";
         if (sizeof($res) > 0) $aux .= " '".$res[sizeof($res)-1]['id_amic']."' ";
         $query2 = "SELECT * FROM `phpbasic`.`usuari` WHERE `id` IN ( ".$aux." )";
-        return $this->selectSQL($query2);
+        $res2 = $this->selectSQL($query2);
+        $res3 = array();
+        foreach ($res2 as $u) {
+            $res3[] = new Usuari((int) $u['id'], $u['username'], $u['pass'], 
+                                 $u['email'], (boolean) $u['sexe'], $u['provincia'], $u['foto']);
+        }
+        return $res3;
     }
     
     function getFotos($idUsuari) {

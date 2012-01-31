@@ -26,12 +26,12 @@ class Comentari {
             $this->setId($aux[0]);
             $this->_load();
         } 
-        else if (func_num_args() == 4) {
-            $this->setId(null);
-            $this->setText($aux[0]);
-            $this->setData($aux[1]);
-            $this->setUsuari(new Usuari((int) $aux[2]));
-            $this->setFoto(new Foto((int) $aux[3]));
+        else if (func_num_args() == 5) {
+            $this->setId($aux[0]);
+            $this->setText($aux[1]);
+            $this->setData($aux[2]);
+            $this->setUsuari(new Usuari((int) $aux[3]));
+            $this->setFoto(new Foto((int) $aux[4]));
         } else throw new JediBookException("numero de parametres incorrecte");
     }
 

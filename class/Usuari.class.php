@@ -13,7 +13,6 @@ include_once 'Foto.class.php';
  * @author elena
  */
 class Usuari {
-    //put your code here
     protected $id;
     protected $userName;
     protected $pass;
@@ -21,9 +20,6 @@ class Usuari {
     protected $sexe;
     protected $provincia;
     protected $fotoPerfil;
-    protected $fotos;
-    protected $amics;
-
 
     function __construct() {
         $aux = func_get_args();
@@ -31,16 +27,14 @@ class Usuari {
             $this->setId($aux[0]);
             $this->_load();
         }
-        else if(func_num_args() == 6){
-            $this->setId(NULL);
-            $this->setUserName($aux[0]);
-            $this->setPass($aux[1]);
-            $this->setEmail($aux[2]);
-            $this->setSexe($aux[3]);
-            $this->setProvincia($aux[4]);
-            $this->setFotoPerfil($aux[5]);
-            $this->setFotos(array());
-            $this->setAmics(array());
+        else if(func_num_args() == 7){
+            $this->setId($aux[0]);
+            $this->setUserName($aux[1]);
+            $this->setPass($aux[2]);
+            $this->setEmail($aux[3]);
+            $this->setSexe($aux[4]);
+            $this->setProvincia($aux[5]);
+            $this->setFotoPerfil($aux[6]);
         }
         else throw new JediBookException("num parametres incorrecte");
     }
@@ -73,15 +67,6 @@ class Usuari {
     function getFotoPerfil(){
         return $this->fotoPerfil;
     }
-    
-    function getFotos(){
-        return $this->fotos;
-    }
-    
-    function getAmics(){
-        return $this->amics;
-    }
-
 
     function setId($id){
         if(!is_int($id) and isset($id)) throw new JediBookException("id Usuari incorrecte");
@@ -95,7 +80,9 @@ class Usuari {
     }
     
     function setPass($pass){
-        if(strlen($pass) < 5 || strlen($pass) > 30 || !preg_match("/^[0-9a-zA-Z]+$/",$pass)) throw new JediBookException("Password incorrecte");
+        if (!is_string($pass)) throw new JediBookException("pass no es un string");
+        else if (strlen($pass) == 32) $this->pass = $pass;
+        else if (strlen($pass) < 5 || strlen($pass) > 30 || !preg_match("/^[0-9a-zA-Z]+$/",$pass)) throw new JediBookException("Password incorrecte");
         else $this->pass = md5 ($pass);
     }
     
@@ -118,27 +105,6 @@ class Usuari {
         if(!is_string($fotoPerfil)) throw new JediBookException("foto de perfil incorrecta");
         else $this->fotoPerfil = $fotoPerfil;
     }
-    
-    function setFotos($fotos){
-        if(!is_array($fotos)) throw new JediBookException("fotos incorrectes");
-        else {
-            for ($i = 0;$i < count($fotos);$i++) {
-               if(!($fotos[$i] instanceof Comentari)) throw new JediBookException("no son fotos");
-           }
-           $this->fotos = $fotos;
-        }    
-    }
-    
-    function setAmics($amics){
-        if(!is_array($amics)) throw new JediBookException("amcis incorrectes");
-        else {
-           for ($i = 0;$i < count($amics);$i++) {
-               if(!($amics[$i] instanceof Comentari)) throw new JediBookException("no son amics");
-           }
-           $this->amics = $amics;
-        }
-    }
-    
     
     function save(){
         $query = "INSERT INTO `phpbasic`.`usuari`(`id`,`username`,`pass`,`email`,`sexe`, `provincia`, `foto`)
@@ -202,15 +168,6 @@ class Usuari {
             $this->setSexe((boolean) $var[0]['sexe']);
             $this->setProvincia($var[0]['provincia']);
             $this->setFotoPerfil($var[0]['foto']);
-            $query = "SELECT `id` FROM `phpbasic`.`foto` WHERE `id_usuari`='{$this->id}'";
-            $q = "SELECT `id_amic` FROM `phpbasic`.`amics` WHERE `id_usuari`='{$this->id}'";
-            $db = new JediBookBD("localhost", "root", "", "phpbasic");
-            $ids = $db->selectSQL($query);
-            $fot = $db->selectSQL($query);
-            $db->close();
-            foreach ($ids as $i) $this->fotos[] = new Foto((int) $i['id']);
-            foreach ($fot as $f) $this->amics[] = new Usuari((int) $f['id']);
-            
         }
     }
     
