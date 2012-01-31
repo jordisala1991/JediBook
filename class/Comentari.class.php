@@ -82,22 +82,26 @@ class Comentari {
     function save() {
         if (!isset($this->usuari->getId())) $this->usuari->save();
         if (!isset($this->foto->getId())) $this->foto->save();
-        $query = "INSERT INTO `phpbasic`.`comentaris`(`id`,`text`,`data`,`id_usuari`,`id_foto`)
+        $query = "INSERT INTO `phpbasic`.`comentari`(`id`,`text`,`data`,`id_usuari`,`id_foto`)
                  VALUES (NULL, {$this->text}, {$this->data}, {$this->usuari->getId()}, {$this->foto->getId()})";
         if (isset($this->id))
             throw new JediBookException("el comentari ja esta a la bd");
         else {
-            $db = new JediBookBD("localhost", "root", "", "phpbasic");
-            $this->id = $db->insertSQL($query);
+            $bd = new JediBookBD("localhost", "root", "", "phpbasic");
+            $this->id = $bd->insertSQL($query);
             $bd->close();
         }
     }
     
     function update() {
+        $query = "UPDATE `phpbasic`.`comentari` SET (`text`={$this->text},`data`={$this->data}) 
+                 WHERE `id`={$this->id}"; 
         if (!isset($this->id)) 
             throw new JediBookException("el comentari no esta a la bd");
         else {
-            //
+            $bd = new JediBookBD("localhost", "root", "", "phpbasic");
+            $bd->updateSQL($query);
+            $bd->close();
         }
     }
     
