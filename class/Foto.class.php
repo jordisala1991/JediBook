@@ -83,8 +83,7 @@ class Foto {
         else $this->descripcio = $decripcio;
     }
     
-    function setFoto($foto){
-        //com es comprova lo de la foto?? al formulari s'ha d'assignar una foto x defecte si no la introdueixen 
+    function setFoto($foto){ 
         if(!is_string($foto)) throw new JediBookException("ruta foto icorrecte");
         else $this->foto = $foto;
     }
@@ -94,12 +93,12 @@ class Foto {
     }
     
     function setVotsOK($votsOK){
-        if(!is_int($votsOK) || $votsOK <= 0) throw new JediBookException("votsOK incorrectes");
+        if(!is_int($votsOK) || $votsOK < 0) throw new JediBookException("votsOK incorrectes");
         else $this->votsOK = $votsOK;
     }
     
     function setVotsKO($votsKO){
-        if(!is_int($votsKO) || $votsKO <= 0) throw new JediBookException("votsKO incorrectes");
+        if(!is_int($votsKO) || $votsKO < 0) throw new JediBookException("votsKO incorrectes");
         else $this->votsKO = $votsKO;
     }
     
