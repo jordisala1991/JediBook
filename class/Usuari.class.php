@@ -2,13 +2,9 @@
 include_once 'JediBookException.class.php';
 include_once 'JediBookBD.class.php';
 include_once 'Foto.class.php';
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
- * Description of Usuari
+ * 
  *
  * @author elena
  */
@@ -142,10 +138,9 @@ class Usuari {
         }
     }
    
-   /* function afegirAmic($nouAmic){
+   function afegirAmic($nouAmic){
         if(!($nouAmic instanceof Usuari)) throw new JediBookException("es un amic k no es usuari");
         else if(!isset($nouAmic->getId()) || !isset($this->id)) throw new JediBookException("usuaris no registrats");
-        else if(array_search($nouAmic, $this->amics) !== FALSE) throw new JediBookException("ja son amics");
         else {
             $query = "INSERT INTO `phpbasic`.`amics`(`id_usuari`, `id_amic`) VALUES ('{$this->id}', '{$nouAmic->getid()}')";
             $db = new JediBookBD("localhost", "root", "", "phpbasic");
@@ -153,7 +148,29 @@ class Usuari {
             $this->amics[] = $nouAmic;
             $nouAmic->afegirAmic($this);
         }
-    }*/
+    }
+    
+    
+    
+    function eliminarAmic($amic){
+        if(!($amic instanceof Usuari)) throw new JediBookException("no és del tipus usuari");
+        else if(!isset ($amic->getId()) || !isset ($this->id)) throw new JediBookException("no estan registrats");
+        else {
+            $query = "SELECT `id_amic` FROM `phpbasic`.`amics` WHERE `id_usuari`='{$this->id}'";
+            $db = new JediBookBD("localhost", "root", "", "phpbasic");
+            $var = $db->selectSQL($query);
+            if($var == array()) {
+                $query2 = "DELETE FROM `phpbasic`.`amics` WHERE `id_usuari`='{$this->id}' AND `id_amic`='{$amic->getId()}'";
+                $db->deleteSQL($query2);
+                $db->close();
+            }
+            else {
+                $db->close();
+                throw new JediBookException("no són amics");
+            }
+            
+        }
+    }
     
     function _load(){
         $query = "SELECT * FROM `phpbasic`.`usuari` WHERE `id`='{$this->id}'";
@@ -169,9 +186,7 @@ class Usuari {
             $this->setProvincia($var[0]['provincia']);
             $this->setFotoPerfil($var[0]['foto']);
         }
-    }
-    
-    
+    }  
     
 }
 
