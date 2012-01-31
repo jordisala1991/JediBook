@@ -46,6 +46,26 @@ class JediBookBD {
         return mysql_affected_rows($this->idConnection);
     }
     
+    function getAmics($idUsuari) {
+        $query = "SELECT `id_amic` FROM `phpbasic`.`amics` WHERE `id_usuari`='{$idUsuari}'";
+        $res = $this->selectSQL($query);
+        $aux = "";
+        for ($i = 0; $i < sizeof($res)-1; $i++) $aux .= " '".$res[$i]['id_amic']."',";
+        if (sizeof($res) > 0) $aux .= " '".$res[sizeof($res)-1]['id_amic']."' ";
+        $query2 = "SELECT * FROM `phpbasic`.`usuari` WHERE `id` IN ( ".$aux." )";
+        return $this->selectSQL($query2);
+    }
+    
+    function getFotos($idUsuari) {
+        $query = "SELECT * FROM `phpbasic`.`foto` WHERE `id_usuari`='{$idUsuari}'";
+        return $this->selectSQL($query);
+    }
+    
+    function getComentaris($idFoto) {
+        $query = "SELECT * FROM `phpbasic`.`comentari` WHERE `id_foto`='{$idFoto}'";
+        return $this->selectSQL($query);
+    }
+    
     function close() {
         mysql_close($this->idConnection);
     }        
