@@ -30,8 +30,8 @@ class Comentari {
             $this->setId(null);
             $this->setText($aux[0]);
             $this->setData($aux[1]);
-            $this->setUsuari($aux[2]);
-            $this->setFoto($aux[3]);
+            $this->setUsuari(new Usuari((int) $aux[2]));
+            $this->setFoto(new Foto((int) $aux[3]));
         } else throw new JediBookException("numero de parametres incorrecte");
     }
 
@@ -132,7 +132,7 @@ class Comentari {
             $this->setText($res[0]['text']);
             $this->setData($res[0]['data']);
             $this->setUsuari(new Usuari((int) $res[0]['id_usuari']));
-            $this->setFoto($res[0]['id_foto']);
+            $this->setFoto(new Foto((int) $res[0]['id_foto']));
         }
     }
 }
