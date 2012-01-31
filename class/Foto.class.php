@@ -20,18 +20,26 @@ class Foto {
     protected $data;
     protected $votsOK;
     protected $votsKO;
-    //protected $comentaris;
+    protected $comentaris;
     protected $usuari;
 
-    function __construct($id, $decripcio, $foto, $data, $votsOK, $votsKO/*, $comentaris*/, $usuari) {
-        $this->setId($id);
-        $this->setDescripcio($decripcio);
-        $this->setFoto($foto);
-        $this->setData($data);
-        $this->setVotsOK($votsOK);
-        $this->setVotsKO($votsKO);
-        //$this->setComentaris($comentaris);
-        $this->setUsuari($usuari);
+    function __construct() {
+        $aux = func_get_args();
+        if(func_num_args() == 1) {
+            $this->setId($aux[0]);
+            $this->_load();
+        }
+        else if(func_num_args() == 3){
+            $this->setId(NULL);
+            $this->setDescripcio($decripcio);
+            $this->setFoto($foto);
+            $this->setData($data);
+            $this->setVotsOK(0);
+            $this->setVotsKO(0);
+            $this->setComentaris(array());
+            $this->setUsuari(array());
+        }
+        else throw new JediBookException("num parametres incorrecte");
     }
 
 
@@ -159,6 +167,26 @@ class Foto {
         }
     }
     
+    function _load(){
+        $query = "SELECT * FROM `phpbasic`.`foto` WHERE `id`='{$this->id}'";
+        $db = new JediBookBD("localhost", "root", "", "phpbasic");
+        $var = $db->selectSQL($query);
+        $db->close();
+        if($var === array()) throw new JediBookException("no hi ha foto amb aquest id");
+        else {
+            $this->setDescripcio($var[0]['descripcio']);
+            $this->setFoto($var[0]['foto']);
+            $this->data($var[0]['data']);
+            $this->setVotsOK((int)$var[0]['votsOK']);
+            $this->setVotsKO((int)$var[0]['votsKO']);
+            $this->setUsuari(new Usuari((int)$var[0]['id_usuari']));
+            $query = "SELECT `id` FROM `phpbasic`.`comentari` WHERE `id_foto`='{$this->id}'";
+            $db = new JediBookBD("localhost", "root", "", "phpbasic");
+            $ids = $db->selectSQL($query);
+            $db->close();
+            foreach ($ids as $i) $this->comentaris[] = new Comentari ((int)$i['id']);
+        }
+    }
     
     
 }
