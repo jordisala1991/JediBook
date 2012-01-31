@@ -8,7 +8,7 @@ define("TAM_MAX_DESCRIPCIO", 300);
 define("TAM_MIN_DECRIPCIO", 3);
 
 /**
- * Description of Foto
+ * 
  *
  * @author elena
  */
@@ -125,7 +125,6 @@ class Foto {
     }
     
     function save(){
-        
         $query = "INSERT INTO `phpbasic`.`foto`(`id`,`descripcio`,`foto`,`data`,`votsOK`, `votsKO`, `id_usuari`)
                  VALUES (NULL, '{$this->descripcio}', '{$this->foto}', '{$this->data}', '{$this->votsOK}', '{$this->votsKO}', '{$this->usuari->getId()}')";
         if (isset($this->id)) throw new JediBookException("la foto ja esta a la bd");
@@ -135,6 +134,29 @@ class Foto {
             $db->close();
         }
         
+    }
+    
+    function delete(){
+        if(!isset($this->id))  throw new JediBookException("la foto no esta registrada al sistema");
+        else {
+            $query = "DELETE FROM `phpbasic`.`foto` WHERE `id`= '{$this->id}'";
+            $db = new JediBookBD("localhost", "root", "", "phpbasic");
+            $db->deleteSQL($query);
+            $db->close();
+            $this->id = NULL;
+        }
+        
+    }
+    
+    function update(){
+        if(!isset($this->id))  throw new JediBookException("la foto no esta registrada al sistema");
+        else {
+            $query = "UPDATE `phpbasic`.`foto` SET (`descripcio`='{$this->descripcio}', `votsOK`='{$this->votsOK}', `votsKO`='{$this->votsKO}') WHERE `id`= '{$this->id}'";
+            $db = new JediBookBD("localhost", "root", "", "phpbasic");
+            $db->deleteSQL($query);
+            $db->close();
+            $this->id = NULL;
+        }
     }
     
     
