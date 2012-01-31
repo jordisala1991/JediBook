@@ -12,7 +12,7 @@ class JediBookBD {
     protected $db;
     protected $host;
     
-    function __construct($host, $user, $pass, $db) {
+    function __construct($host = "localhost", $user = "jedi", $pass = "jedi", $db = "phpbasic") {
         $this->db = $db;
         $this->host = $host;
         $this->pass = $pass;
