@@ -20,17 +20,17 @@ class Foto {
     protected $data;
     protected $votsOK;
     protected $votsKO;
-    protected $comentaris;
+    //protected $comentaris;
     protected $usuari;
 
-    function __construct($id, $decripcio, $foto, $data, $votsOK, $votsKO, $comentaris, $usuari) {
+    function __construct($id, $decripcio, $foto, $data, $votsOK, $votsKO/*, $comentaris*/, $usuari) {
         $this->setId($id);
         $this->setDescripcio($decripcio);
         $this->setFoto($foto);
         $this->setData($data);
         $this->setVotsOK($votsOK);
         $this->setVotsKO($votsKO);
-        $this->setComentaris($comentaris);
+        //$this->setComentaris($comentaris);
         $this->setUsuari($usuari);
     }
 
@@ -126,10 +126,10 @@ class Foto {
     }
     
     function save(){
+        
         $query = "INSERT INTO `phpbasic`.`foto`(`id`,`descripcio`,`foto`,`data`,`votsOK`, `votsKO`)
                  VALUES (NULL, {$this->descripcio}, {$this->foto}, {$this->data}, {$this->votsOK}, {$this->votsKO})";
-        if (isset($this->id))
-            throw new JediBookException("la foto ja esta a la bd");
+        if (isset($this->id)) throw new JediBookException("la foto ja esta a la bd");
         else {
             $db = new JediBookBD("localhost", "root", "", "phpbasic");
             $this->id = $db->insertSQL($query);
