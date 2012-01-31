@@ -125,7 +125,15 @@ class Foto {
     }
     
     function save(){
-        $bd = new JediBookBD();
+        $query = "INSERT INTO `phpbasic`.`foto`(`id`,`descripcio`,`foto`,`data`,`votsOK`, `votsKO`)
+                 VALUES (NULL, {$this->descripcio}, {$this->foto}, {$this->data}, {$this->votsOK}, {$this->votsKO})";
+        if (isset($this->id))
+            throw new JediBookException("la foto ja esta a la bd");
+        else {
+            $db = new JediBookBD("localhost", "root", "", "phpbasic");
+            $this->id = $db->insertSQL($query);
+            $db->close();
+        }
         
     }
     
