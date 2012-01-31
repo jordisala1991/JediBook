@@ -92,7 +92,7 @@ class Usuari {
     }
     
     function setEmail($email){
-        if(!filter_var($e, FILTER_VALIDATE_EMAIL)) throw new JediBookException("email incorrecte");
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)) throw new JediBookException("email incorrecte");
         else $this->email = $email;
     }
     
