@@ -92,7 +92,7 @@ class Comentari {
         if (isset($this->id))
             throw new JediBookException("el comentari ja esta a la bd");
         else {
-            $bd = new JediBookBD("localhost", "root", "", "phpbasic");
+            $bd = new JediBookBD();
             $this->id = $bd->insertSQL($query);
             $bd->close();
         }
@@ -104,7 +104,7 @@ class Comentari {
         if (!isset($this->id)) 
             throw new JediBookException("el comentari no esta a la bd");
         else {
-            $bd = new JediBookBD("localhost", "root", "", "phpbasic");
+            $bd = new JediBookBD();
             $bd->updateSQL($query);
             $bd->close();
         }
@@ -115,7 +115,7 @@ class Comentari {
         if (!isset($this->id))
             throw new JediBookException("el comentari no esta a la bd");
         else {
-            $bd = new JediBookBD("localhost", "root", "", "phpbasic");
+            $bd = new JediBookBD();
             $bd->deleteSQL($query);
             $bd->close();
             $this->id = null;
@@ -124,7 +124,7 @@ class Comentari {
     
     private function _load() {
         $query = "SELECT * FROM `phpbasic`.`comentari` WHERE `id` = '{$this->id}'";
-        $bd = new JediBookBD("localhost", "root", "", "phpbasic");
+        $bd = new JediBookBD();
         $res = $bd->selectSQL($query);
         $bd->close();
         if ($res === array()) throw new JediBookException("el comentari no existeix a la bd");
