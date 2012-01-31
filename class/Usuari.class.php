@@ -168,7 +168,7 @@ class Usuari {
         }
     }
    
-    function afegirAmic($nouAmic){
+   /* function afegirAmic($nouAmic){
         if(!($nouAmic instanceof Usuari)) throw new JediBookException("es un amic k no es usuari");
         else if(!isset($nouAmic->getId()) || !isset($this->id)) throw new JediBookException("usuaris no registrats");
         else if(array_search($nouAmic, $this->amics) !== FALSE) throw new JediBookException("ja son amics");
@@ -179,7 +179,7 @@ class Usuari {
             $this->amics[] = $nouAmic;
             $nouAmic->afegirAmic($this);
         }
-    }
+    }*/
     
     
     
