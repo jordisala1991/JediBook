@@ -80,10 +80,8 @@ class Comentari {
     }
     
     function save() {
-        if (!isset($this->usuari->getId())) $this->usuari->save();
-        if (!isset($this->foto->getId())) $this->foto->save();
         $query = "INSERT INTO `phpbasic`.`comentari`(`id`,`text`,`data`,`id_usuari`,`id_foto`)
-                 VALUES (NULL, {$this->text}, {$this->data}, {$this->usuari->getId()}, {$this->foto->getId()})";
+                 VALUES (NULL, '{$this->text}', '{$this->data}', '{$this->usuari->getId()}', '{$this->foto->getId()}')";
         if (isset($this->id))
             throw new JediBookException("el comentari ja esta a la bd");
         else {
