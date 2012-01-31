@@ -20,7 +20,6 @@ class Foto {
     protected $data;
     protected $votsOK;
     protected $votsKO;
-    protected $comentaris;
     protected $usuari;
 
     function __construct() {
@@ -31,13 +30,12 @@ class Foto {
         }
         else if(func_num_args() == 3){
             $this->setId(NULL);
-            $this->setDescripcio($decripcio);
-            $this->setFoto($foto);
-            $this->setData($data);
+            $this->setDescripcio($aux[0]);
+            $this->setFoto($aux[1]);
+            $this->setData($aux[2]);
             $this->setVotsOK(0);
             $this->setVotsKO(0);
-            $this->setComentaris(array());
-            $this->setUsuari(array());
+            $this->setUsuari(new Usuari((int)$aux[3]));
         }
         else throw new JediBookException("num parametres incorrecte");
     }
@@ -180,11 +178,6 @@ class Foto {
             $this->setVotsOK((int)$var[0]['votsOK']);
             $this->setVotsKO((int)$var[0]['votsKO']);
             $this->setUsuari(new Usuari((int)$var[0]['id_usuari']));
-            $query = "SELECT `id` FROM `phpbasic`.`comentari` WHERE `id_foto`='{$this->id}'";
-            $db = new JediBookBD("localhost", "root", "", "phpbasic");
-            $ids = $db->selectSQL($query);
-            $db->close();
-            foreach ($ids as $i) $this->comentaris[] = new Comentari ((int)$i['id']);
         }
     }
     
