@@ -76,7 +76,8 @@ class Usuari {
 
 
     function setId($id){
-        if(!is_int($id) || $id <= 0 || isset($id)) throw new JediBookException("id Usuari incorrecte");
+        if(!is_int($id) and isset($id)) throw new JediBookException("id Usuari incorrecte");
+        else if($id < 0) throw new JediBookException("id Usuari incorrecte");
         else $this->id = $id;
     }
     
