@@ -176,7 +176,7 @@ class Foto {
         else {
             $this->setDescripcio($var[0]['descripcio']);
             $this->setFoto($var[0]['foto']);
-            $this->data($var[0]['data']);
+            $this->setData($var[0]['data']);
             $this->setVotsOK((int)$var[0]['votsOK']);
             $this->setVotsKO((int)$var[0]['votsKO']);
             $this->setUsuari(new Usuari((int)$var[0]['id_usuari']));
