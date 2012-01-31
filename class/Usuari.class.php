@@ -199,7 +199,7 @@ class Usuari {
             $this->setUserName($var[0]['username']);
             $this->pass = $var[0]['pass'];
             $this->setEmail($var[0]['email']);
-            $this->setSexe($var[0]['sexe']);
+            $this->setSexe((boolean) $var[0]['sexe']);
             $this->setProvincia($var[0]['provincia']);
             $this->setFotoPerfil($var[0]['foto']);
             $query = "SELECT `id` FROM `phpbasic`.`foto` WHERE `id_usuari`='{$this->id}'";
@@ -208,8 +208,8 @@ class Usuari {
             $ids = $db->selectSQL($query);
             $fot = $db->selectSQL($query);
             $db->close();
-            foreach ($ids as $i) $this->fotos[] = new Foto($i['id']);
-            foreach ($fot as $f) $this->amics[] = new Usuari($f['id']);
+            foreach ($ids as $i) $this->fotos[] = new Foto((int) $i['id']);
+            foreach ($fot as $f) $this->amics[] = new Usuari((int) $f['id']);
             
         }
     }

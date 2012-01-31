@@ -9,7 +9,7 @@ define("TAM_MAX_TEXT", 300);
 define("TAM_MIN_TEXT", 3);
 
 /**
- * Description of Comentari
+ * 
  *
  * @author Jordi
  */
@@ -19,13 +19,20 @@ class Comentari {
     protected $data;
     protected $usuari;
     protected $foto;
-
-    function __construct($id, $text, $data, $usuari, $foto) {
-        $this->setId($id);
-        $this->setText($text);
-        $this->setData($data);
-        $this->setUsuari($usuari);
-        $this->setFoto($foto);
+    
+    function __construct() {
+        $aux = func_get_args();
+        if (func_num_args() == 1) {
+            $this->setId($aux[0]);
+            $this->_load();
+        } 
+        else if (func_num_args() == 4) {
+            $this->setId(null);
+            $this->setText($aux[0]);
+            $this->setData($aux[1]);
+            $this->setUsuari($aux[2]);
+            $this->setFoto($aux[3]);
+        } else throw new JediBookException("numero de parametres incorrecte");
     }
 
     function getId() {
@@ -92,8 +99,8 @@ class Comentari {
     }
     
     function update() {
-        $query = "UPDATE `phpbasic`.`comentari` SET (`text`={$this->text},`data`={$this->data}) 
-                 WHERE `id`={$this->id}"; 
+        $query = "UPDATE `phpbasic`.`comentari` SET (`text`='{$this->text}',`data`='{$this->data}') 
+                 WHERE `id`='{$this->id}'"; 
         if (!isset($this->id)) 
             throw new JediBookException("el comentari no esta a la bd");
         else {
@@ -104,10 +111,28 @@ class Comentari {
     }
     
     function delete() {
+        $query = "DELETE FROM `phpbasic`.`comentari` WHERE `id` = '{$this->id}'";
         if (!isset($this->id))
             throw new JediBookException("el comentari no esta a la bd");
         else {
-            //
+            $bd = new JediBookBD("localhost", "root", "", "phpbasic");
+            $bd->deleteSQL($query);
+            $bd->close();
+            $this->id = null;
+        }
+    }
+    
+    private function _load() {
+        $query = "SELECT * FROM `phpbasic`.`comentari` WHERE `id` = '{$this->id}'";
+        $bd = new JediBookBD("localhost", "root", "", "phpbasic");
+        $res = $bd->selectSQL($query);
+        $bd->close();
+        if ($res === array()) throw new JediBookException("el comentari no existeix a la bd");
+        else {
+            $this->setText($res[0]['text']);
+            $this->setData($res[0]['data']);
+            $this->setUsuari(new Usuari((int) $res[0]['id_usuari']));
+            $this->setFoto($res[0]['id_foto']);
         }
     }
 }
