@@ -131,6 +131,19 @@ class Usuari {
         }
     }
     
+    
+    function save(){
+        
+        $query = "INSERT INTO `phpbasic`.`usuari`(`id`,`username`,`pass`,`email`,`sexe`, `provincia`, `foto`)
+                 VALUES (NULL, {$this->userName}, {$this->pass}, {$this->email}, {$this->sexe}, {$this->provincia}, {$this->fotoPerfil})";
+        if (isset($this->id)) throw new JediBookException("l'usuari ja esta a la bd");
+        else {
+            $db = new JediBookBD("localhost", "root", "", "phpbasic");
+            $this->id = $db->insertSQL($query);
+            $db->close();
+        }
+        
+    }
    
     /*function afegirAmic($nouAmic){
         if(!($nouAmic instanceof Usuari)) throw new JediBookException("es un amic k no es usuari");
