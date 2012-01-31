@@ -22,7 +22,7 @@ class Usuari {
     protected $provincia;
     protected $fotoPerfil;
     //protected $fotos;
-   // protected $amics;
+    protected $amics;
 
 
     function __construct($id, $userName, $pass, $email, $sexe, $provincia, $fotoPerfil/*, $fotos, $amics*/) {
@@ -144,10 +144,19 @@ class Usuari {
         
     }
    
-    /*function afegirAmic($nouAmic){
+    function afegirAmic($nouAmic){
+        
         if(!($nouAmic instanceof Usuari)) throw new JediBookException("es un amic k no es usuari");
-        else array_push($this->amics, $nouAmic);
-    }*/
+        else if(!isset($nouAmic->getId()) || !isset($this->getId())) throw new JediBookException("usuaris no registrats");
+        else if(!array_search($nouAmic, $this->amics)) throw new JediBookException("ja son amics");
+        else {
+            $query = "INSERT INTO `phpbasic`.`amics`(`id_usuari`, `id_amic`) VALUES ('{$this->id}', '{$nouAmic->getid()}')";
+            $db = new JediBookBD("localhost", "root", "", "phpbasic");
+            $db->insertSQL($query);
+            $this->amics[] = $nouAmic;
+            $nouAmic->afegirAmic($this);
+        }
+    }
     
     
     
