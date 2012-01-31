@@ -106,7 +106,8 @@ class Usuari {
     }
     
     function setFotoPerfil($fotoPerfil){
-        
+        if(!is_string($fotoPerfil)) throw new JediBookException("foto de perfil incorrecta");
+        else $this->fotoPerfil = $fotoPerfil;
     }
     
     function setFotos($fotos){
@@ -129,11 +130,8 @@ class Usuari {
         }
     }
     
-    /*function ferteAmic(){
-         
-    }
-    
-    function acceptarAmic($nouAmic){
+   
+    /*function afegirAmic($nouAmic){
         if(!($nouAmic instanceof Usuari)) throw new JediBookException("es un amic k no es usuari");
         else array_push($this->amics, $nouAmic);
     }*/

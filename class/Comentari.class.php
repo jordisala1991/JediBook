@@ -89,7 +89,7 @@ class Comentari {
         else {
             $db = new JediBookBD("localhost", "root", "", "phpbasic");
             $this->id = $db->insertSQL($query);
-            $bd->close();
+            $db->close();
         }
     }
     
