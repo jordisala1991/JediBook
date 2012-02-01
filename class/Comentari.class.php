@@ -27,11 +27,11 @@ class Comentari {
             $this->_load();
         } 
         else if (func_num_args() == 5) {
-            $this->setId($aux[0]);
+            $this->_setId($aux[0]);
             $this->setText($aux[1]);
             $this->setData($aux[2]);
-            $this->setUsuari(new Usuari((int) $aux[3]));
-            $this->setFoto(new Foto((int) $aux[4]));
+            $this->_setUsuari(new Usuari($aux[3]));
+            $this->_setFoto(new Foto($aux[4]));
         } else throw new JediBookException("numero de parametres incorrecte");
     }
 
@@ -39,7 +39,7 @@ class Comentari {
         return $this->id;
     }
 
-    function setId($id) {
+    private function _setId($id) {
         if (!is_int($id) and isset($id)) throw new JediBookException("id no és un enter");
         if ($id < 0) throw new JediBookException("id no és positiu");
         $this->id = $id;
@@ -70,7 +70,7 @@ class Comentari {
         return $this->usuari;
     }
 
-    function setUsuari($usuari) {
+    private function _setUsuari($usuari) {
         if (!($usuari instanceof Usuari))
             throw new JediBookException("usuari no es un objecte de la classe Usuari");
         $this->usuari = $usuari;
@@ -80,7 +80,7 @@ class Comentari {
         return $this->foto;
     }
     
-    function setFoto($foto) {
+    private function _setFoto($foto) {
         if (!($foto instanceof Foto))
             throw new JediBookException("foto no es un objecte de la clase Foto");
         $this->foto = $foto;
@@ -92,7 +92,7 @@ class Comentari {
         if (isset($this->id))
             throw new JediBookException("el comentari ja esta a la bd");
         else {
-            $bd = new JediBookBD("localhost", "root", "", "phpbasic");
+            $bd = new JediBookBD();
             $this->id = $bd->insertSQL($query);
             $bd->close();
         }
@@ -104,7 +104,7 @@ class Comentari {
         if (!isset($this->id)) 
             throw new JediBookException("el comentari no esta a la bd");
         else {
-            $bd = new JediBookBD("localhost", "root", "", "phpbasic");
+            $bd = new JediBookBD();
             $bd->updateSQL($query);
             $bd->close();
         }
@@ -115,7 +115,7 @@ class Comentari {
         if (!isset($this->id))
             throw new JediBookException("el comentari no esta a la bd");
         else {
-            $bd = new JediBookBD("localhost", "root", "", "phpbasic");
+            $bd = new JediBookBD();
             $bd->deleteSQL($query);
             $bd->close();
             $this->id = null;
@@ -124,15 +124,15 @@ class Comentari {
     
     private function _load() {
         $query = "SELECT * FROM `phpbasic`.`comentari` WHERE `id` = '{$this->id}'";
-        $bd = new JediBookBD("localhost", "root", "", "phpbasic");
+        $bd = new JediBookBD();
         $res = $bd->selectSQL($query);
         $bd->close();
         if ($res === array()) throw new JediBookException("el comentari no existeix a la bd");
         else {
             $this->setText($res[0]['text']);
             $this->setData($res[0]['data']);
-            $this->setUsuari(new Usuari((int) $res[0]['id_usuari']));
-            $this->setFoto(new Foto((int) $res[0]['id_foto']));
+            $this->_setUsuari(new Usuari((int) $res[0]['id_usuari']));
+            $this->_setFoto(new Foto((int) $res[0]['id_foto']));
         }
     }
 }
