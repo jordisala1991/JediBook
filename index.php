@@ -148,7 +148,7 @@ and open the template in the editor.
                float: right;
                padding-top: 18px;
             } 
-            a{
+            #loguin label{
                 color: white;
                 font: tahoma;
                 font-size: 12px;
@@ -163,7 +163,7 @@ and open the template in the editor.
                     <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
                     <input type="text" name="nom"  Align=right/>
                     <input type="password" name="password"  Align=right/><br />
-                    <input type="checkbox" name="conexio" value="conectat"  Align=right/> <a>Mantén-me connectat &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+                    <input type="checkbox" name="conexio" value="conectat"  Align=right/> <label>Mantén-me connectat &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
                     <input type="submit" name="submit" value ="Inicia sessió"/>
                     </form>
                 </div>
