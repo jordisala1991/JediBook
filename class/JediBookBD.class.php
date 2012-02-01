@@ -64,12 +64,22 @@ class JediBookBD {
     
     function getFotos($idUsuari) {
         $query = "SELECT * FROM `phpbasic`.`foto` WHERE `id_usuari`='{$idUsuari}'";
-        return $this->selectSQL($query);
+        $res = $this->selectSQL($query);
+        $res2 = array();
+        foreach ($res as $f) {
+            $res2[] = new Foto((int) $f['id'], $f['descripcio'], $f['foto'], $f['data'], (int)$f['votsOK'], (int)$f['votsKO'], (int)$f['id_usuari']);
+        }
+        return $res2;
     }
     
     function getComentaris($idFoto) {
         $query = "SELECT * FROM `phpbasic`.`comentari` WHERE `id_foto`='{$idFoto}'";
-        return $this->selectSQL($query);
+        $res = $this->selectSQL($query);
+        $res2 = array();
+        foreach ($res as $c) {
+            $res2[] = new Comentari((int)$c['id'], $c['text'], $c['data'], (int)$c['id_usuari'], (int)$c['id_foto']);
+        }
+        return $res2;
     }
     
     function estaRegistrat($userName, $pass) {

@@ -35,7 +35,7 @@ class Foto {
             $this->_setData($aux[3]);
             $this->_setVotsOK($aux[4]);
             $this->_setVotsKO($aux[5]);
-            $this->_setUsuari(new Usuari((int)$aux[6]));
+            $this->_setUsuari(new Usuari($aux[6]));
         }
         else throw new JediBookException("num parametres incorrecte");
     }
