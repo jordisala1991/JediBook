@@ -44,6 +44,7 @@ and open the template in the editor.
                 color: white;
                 padding-top: 18px;
                 padding-left: 45px;
+                float: left;
             }
             #main {
                 padding: 20px;
@@ -142,12 +143,30 @@ and open the template in the editor.
                 font-family: tahoma;
                 font-size: 12px;
             }
+            #loguin{
+               lign:"right";
+               float: right;
+               padding-top: 18px;
+            } 
+            a{
+                color: white;
+                font: tahoma;
+                font-size: 12px;
+            }
         </style>
     </head>
     <body>
         <div id="wrapper">
             <div id="header">
                 <div id="title">JediBook</div>
+                <div id="loguin">
+                    <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
+                    <input type="text" name="nom"  Align=right/>
+                    <input type="password" name="password"  Align=right/><br />
+                    <input type="checkbox" name="conexio" value="conectat"  Align=right/> <a>Mantén-me connectat &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+                    <input type="submit" name="submit" value ="Inicia sessió"/>
+                    </form>
+                </div>
             </div>
             <div id="main">
                 <div id="column">
