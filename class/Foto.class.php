@@ -150,9 +150,8 @@ class Foto {
         else {
             $query = "UPDATE `phpbasic`.`foto` SET (`descripcio`='{$this->descripcio}', `votsOK`='{$this->votsOK}', `votsKO`='{$this->votsKO}') WHERE `id`= '{$this->id}'";
             $db = new JediBookBD();
-            $db->deleteSQL($query);
+            $db->updateSQL($query);
             $db->close();
-            $this->id = NULL;
         }
     }
     
