@@ -20,24 +20,27 @@ and open the template in the editor.
                 font-style: normal;
 
             }
+            
             body {
                 padding: 0;
                 margin:0;
-                
                 background-color:#FFF8D3; 
             }
+            
             #wrapper {
                 width: auto;
                 height: 100%;
                 margin: auto;
 
             }
+            
             #header {
                 background-color: #222028;
                 width: auto;
                 height: 80px;
                 padding: 5px;
             }
+            
             #title {
                 font-family: 'BaloneyRegular';
                 font-size: 40px;
@@ -46,12 +49,14 @@ and open the template in the editor.
                 padding-left: 45px;
                 float: left;
             }
+            
             #main {
                 padding: 20px;
                 width:100%;
                 overflow:hidden;
                 height:auto;
             }
+            
             #column {
                 margin:0 auto 0 auto;
                 background-color: white;
@@ -65,49 +70,53 @@ and open the template in the editor.
                 filter: shadow(color=#999999, direction=135, strength=2);                    
                 box-shadow: 2px 2px 5px #999;
             }
+            
             #registre {
                 font-family: tahoma;
                 text-align: right;
             }
-            .minimal {
-  background: #e3e3e3;
-  border: 1px solid #bbb;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
-  border-radius: 3px;
-  -webkit-box-shadow: inset 0 0 1px 1px #f6f6f6;
-  -moz-box-shadow: inset 0 0 1px 1px #f6f6f6;
-  -ms-box-shadow: inset 0 0 1px 1px #f6f6f6;
-  -o-box-shadow: inset 0 0 1px 1px #f6f6f6;
-  box-shadow: inset 0 0 1px 1px #f6f6f6;
-  color: #333;
-  font: bold 12px Tahoma, helvetica, arial, sans-serif;
-  line-height: 1;
-  padding: 8px 0 9px;
-  text-align: center;
-  text-shadow: 0 1px 0 #fff;
-  width: 150px; }
-  .minimal:hover {
-    background: #d9d9d9;
-    -webkit-box-shadow: inset 0 0 1px 1px #eaeaea;
-    -moz-box-shadow: inset 0 0 1px 1px #eaeaea;
-    -ms-box-shadow: inset 0 0 1px 1px #eaeaea;
-    -o-box-shadow: inset 0 0 1px 1px #eaeaea;
-    box-shadow: inset 0 0 1px 1px #eaeaea;
-    color: #222;
-    cursor: pointer; }
-  .minimal:active {
-    background: #d0d0d0;
-    -webkit-box-shadow: inset 0 0 1px 1px #e3e3e3;
-    -moz-box-shadow: inset 0 0 1px 1px #e3e3e3;
-    -ms-box-shadow: inset 0 0 1px 1px #e3e3e3;
-    -o-box-shadow: inset 0 0 1px 1px #e3e3e3;
-    box-shadow: inset 0 0 1px 1px #e3e3e3;
-    color: #000; }
-
             
+            .minimal {
+                background: #e3e3e3;
+                border: 1px solid #bbb;
+                -webkit-border-radius: 3px;
+                -moz-border-radius: 3px;
+                -ms-border-radius: 3px;
+                -o-border-radius: 3px;
+                border-radius: 3px;
+                -webkit-box-shadow: inset 0 0 1px 1px #f6f6f6;
+                -moz-box-shadow: inset 0 0 1px 1px #f6f6f6;
+                -ms-box-shadow: inset 0 0 1px 1px #f6f6f6;
+                -o-box-shadow: inset 0 0 1px 1px #f6f6f6;
+                box-shadow: inset 0 0 1px 1px #f6f6f6;
+                color: #333;
+                font: bold 12px Tahoma, helvetica, arial, sans-serif;
+                line-height: 1;
+                padding: 5px 0 7px;
+                text-align: center;
+                text-shadow: 0 1px 0 #fff;
+                width: 120px; 
+            }
+            .minimal:hover {
+                background: #d9d9d9;
+                -webkit-box-shadow: inset 0 0 1px 1px #eaeaea;
+                -moz-box-shadow: inset 0 0 1px 1px #eaeaea;
+                -ms-box-shadow: inset 0 0 1px 1px #eaeaea;
+                -o-box-shadow: inset 0 0 1px 1px #eaeaea;
+                box-shadow: inset 0 0 1px 1px #eaeaea;
+                color: #222;
+                cursor: pointer; 
+            }
+            .minimal:active {
+                background: #d0d0d0;
+                -webkit-box-shadow: inset 0 0 1px 1px #e3e3e3;
+                -moz-box-shadow: inset 0 0 1px 1px #e3e3e3;
+                -ms-box-shadow: inset 0 0 1px 1px #e3e3e3;
+                -o-box-shadow: inset 0 0 1px 1px #e3e3e3;
+                box-shadow: inset 0 0 1px 1px #e3e3e3;
+                color: #000; 
+            }
+
             #registre fieldset {
                 text-align: left;
             }
@@ -119,6 +128,13 @@ and open the template in the editor.
                 background-color:#000000;
                 padding:3px 8px 3px 8px;
                 text-align: left;
+                border-radius: 7px;  
+                -moz-border-radius:7px;  
+                -webkit-border-radius:7px;
+                -webkit-box-shadow: 2px 2px 5px #999;
+                -moz-box-shadow: 2px 2px 5px #999;
+                filter: shadow(color=#999999, direction=135, strength=2);                    
+                box-shadow: 2px 2px 5px #999;
             }            
             #registre label {
                 display:block;
