@@ -23,13 +23,13 @@ class Comentari {
     function __construct() {
         $aux = func_get_args();
         if (func_num_args() == 1) {
-            $this->setId($aux[0]);
+            $this->_setId($aux[0]);
             $this->_load();
         } 
         else if (func_num_args() == 5) {
             $this->_setId($aux[0]);
-            $this->setText($aux[1]);
-            $this->setData($aux[2]);
+            $this->_setText($aux[1]);
+            $this->_setData($aux[2]);
             $this->_setUsuari(new Usuari($aux[3]));
             $this->_setFoto(new Foto($aux[4]));
         } else throw new JediBookException("numero de parametres incorrecte");
@@ -49,7 +49,7 @@ class Comentari {
         return $this->text;
     }
 
-    function setText($text) {
+    private function _setText($text) {
         if (!is_string($text)) throw new JediBookException("text no es un string");
         if (strlen($text) > TAM_MAX_TEXT)
             throw new JediBookException("text te un tamany superior a ".TAM_MAX_TEXT);
@@ -62,7 +62,7 @@ class Comentari {
         return $this->data;
     }
 
-    function setData($data) {
+    private function _setData($data) {
         $this->data = $data;
     }
 
@@ -98,18 +98,6 @@ class Comentari {
         }
     }
     
-    function update() {
-        $query = "UPDATE `phpbasic`.`comentari` SET (`text`='{$this->text}',`data`='{$this->data}') 
-                 WHERE `id`='{$this->id}'"; 
-        if (!isset($this->id)) 
-            throw new JediBookException("el comentari no esta a la bd");
-        else {
-            $bd = new JediBookBD();
-            $bd->updateSQL($query);
-            $bd->close();
-        }
-    }
-    
     function delete() {
         $query = "DELETE FROM `phpbasic`.`comentari` WHERE `id` = '{$this->id}'";
         if (!isset($this->id))
@@ -129,8 +117,8 @@ class Comentari {
         $bd->close();
         if ($res === array()) throw new JediBookException("el comentari no existeix a la bd");
         else {
-            $this->setText($res[0]['text']);
-            $this->setData($res[0]['data']);
+            $this->_setText($res[0]['text']);
+            $this->_setData($res[0]['data']);
             $this->_setUsuari(new Usuari((int) $res[0]['id_usuari']));
             $this->_setFoto(new Foto((int) $res[0]['id_foto']));
         }
