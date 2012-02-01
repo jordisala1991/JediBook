@@ -155,7 +155,7 @@ class Foto {
         }
     }
     
-    function _load(){
+    private function _load(){
         $query = "SELECT * FROM `phpbasic`.`foto` WHERE `id`='{$this->id}'";
         $db = new JediBookBD();
         $var = $db->selectSQL($query);
