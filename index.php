@@ -7,7 +7,6 @@ and open the template in the editor.
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title></title>
-        <link href="http://fonts.googleapis.com/css?family=Baloney" rel="stylesheet" type="text/css" />
         <style type="text/css">
             @font-face {
                 font-family: 'BaloneyRegular';
@@ -24,7 +23,8 @@ and open the template in the editor.
             body {
                 padding: 0;
                 margin:0;
-                background-color:#FFF8D3; 
+                background-color:#FFF8D3;
+                font-family: tahoma;
             }
             
             #wrapper {
@@ -72,7 +72,6 @@ and open the template in the editor.
             }
             
             #registre {
-                font-family: tahoma;
                 text-align: right;
                 padding-top:20px;
                 padding-bottom:20px;
@@ -163,17 +162,16 @@ and open the template in the editor.
                 font-size: 12px;
             }
             #loguin{
-               lign:"right";
                float: right;
-               padding-top: 8px;
             } 
             #loguin label{
                 color: white;
                 font: tahoma;
                 font-size: 12px;
             }
-            #login input[type=submit]{
-                padding-right: 2px;
+            #loguin input[type=submit] {
+                margin-left: 55px;
+                margin-top: 5px;
             }
         </style>
     </head>
@@ -183,11 +181,13 @@ and open the template in the editor.
                 <div id="title">JediBook</div>
                 <div id="loguin">
                     <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
-                        <table cellspacing="0"><tr><td><label for="email">Usuari</label></td><td><label for="pass">Contrasenya</label></td></tr><tr><td></table>
-                    <input type="text" name="nom"  Align=right/>
-                    <input type="password" name="password"  Align=right/><br />
-                    <input type="checkbox" name="conexio" value="conectat"  Align=right/> <label>Mantén-me connectat</label>
-                    <input type="submit" class="minimal" name="submit" value ="Inicia sessió"/>
+                        <label for="nom_log" style="margin-left:2px">usuari</label>
+                        <label for="pass_log" style="margin-left:125px">contrasenya</label><br/>
+                        <input type="text" name="nom" id="nom_log"/>
+                        <input type="password" name="password" id="pass_log"/><br/>
+                        <input type="checkbox" name="conexio" value="conectat" id="conexio"/>
+                        <label for="conexio">Mantén-me connectat</label>
+                        <input type="submit" class="minimal" name="submit" value ="Inicia sessió"/>
                     </form>
                 </div>
             </div>
