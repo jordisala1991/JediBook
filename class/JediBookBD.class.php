@@ -72,9 +72,14 @@ class JediBookBD {
         return $this->selectSQL($query);
     }
     
+    function estaRegistrat($userName, $pass) {
+        $query = "SELECT `id` FROM `phpbasic`.`usuari` WHERE `username`='{$userName}' AND `pass`='{$pass}'";
+        if (($res = $this->selectSQL($query)) === array()) return false;
+        return (int) $res[0]['id'];
+    }
+    
     function close() {
         mysql_close($this->idConnection);
     }        
 }
-
 ?>

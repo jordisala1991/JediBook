@@ -148,7 +148,7 @@ class Foto {
     function update(){
         if(!isset($this->id))  throw new JediBookException("la foto no esta registrada al sistema");
         else {
-            $query = "UPDATE `phpbasic`.`foto` SET (`descripcio`='{$this->descripcio}', `votsOK`='{$this->votsOK}', `votsKO`='{$this->votsKO}') WHERE `id`= '{$this->id}'";
+            $query = "UPDATE `phpbasic`.`foto` SET `descripcio`='{$this->descripcio}', `votsOK`='{$this->votsOK}', `votsKO`='{$this->votsKO}' WHERE `id`='{$this->id}'";
             $db = new JediBookBD();
             $db->updateSQL($query);
             $db->close();
@@ -169,10 +169,7 @@ class Foto {
             $this->_setVotsKO((int)$var[0]['votsKO']);
             $this->_setUsuari(new Usuari((int)$var[0]['id_usuari']));
         }
-    }
-    
-    
-    
+    }    
 }
 
 ?>
