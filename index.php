@@ -162,12 +162,15 @@ and open the template in the editor.
             #loguin{
                lign:"right";
                float: right;
-               padding-top: 18px;
+               padding-top: 8px;
             } 
             #loguin label{
                 color: white;
                 font: tahoma;
                 font-size: 12px;
+            }
+            #login input[type=submit]{
+                padding-right: 2px;
             }
         </style>
     </head>
@@ -177,10 +180,11 @@ and open the template in the editor.
                 <div id="title">JediBook</div>
                 <div id="loguin">
                     <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
+                        <table cellspacing="0"><tr><td><label for="email">Usuari</label></td><td><label for="pass">Contrasenya</label></td></tr><tr><td></table>
                     <input type="text" name="nom"  Align=right/>
                     <input type="password" name="password"  Align=right/><br />
-                    <input type="checkbox" name="conexio" value="conectat"  Align=right/> <label>Mantén-me connectat &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
-                    <input type="submit" name="submit" value ="Inicia sessió"/>
+                    <input type="checkbox" name="conexio" value="conectat"  Align=right/> <label>Mantén-me connectat</label>
+                    <input type="submit" class="minimal" name="submit" value ="Inicia sessió"/>
                     </form>
                 </div>
             </div>
