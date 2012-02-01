@@ -57,7 +57,7 @@ class JediBookBD {
         $res3 = array();
         foreach ($res2 as $u) {
             $res3[] = new Usuari((int) $u['id'], $u['username'], $u['pass'], 
-                                 $u['email'], (boolean) $u['sexe'], $u['provincia'], $u['foto']);
+                                 $u['email'], (boolean) $u['sexe'], $u['provincia'], $u['foto'], $u['datanaixement']);
         }
         return $res3;
     }

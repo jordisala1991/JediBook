@@ -16,6 +16,7 @@ class Usuari {
     protected $sexe;
     protected $provincia;
     protected $fotoPerfil;
+    protected $dataNaixement;
 
     function __construct() {
         $aux = func_get_args();
@@ -31,6 +32,7 @@ class Usuari {
             $this->setSexe($aux[4]);
             $this->setProvincia($aux[5]);
             $this->setFotoPerfil($aux[6]);
+            $this->_setDataNaixement($aux[7]);
         }
         else throw new JediBookException("num parametres incorrecte");
     }
@@ -61,6 +63,10 @@ class Usuari {
     
     function getFotoPerfil(){
         return $this->fotoPerfil;
+    }
+    
+    function getDataNaixement(){
+        return $this->dataNaixement;
     }
 
     private function _setId($id){
@@ -101,6 +107,10 @@ class Usuari {
         else $this->fotoPerfil = $fotoPerfil;
     }
     
+    private function _setDataNaixement($dataNaixement){
+        $this->dataNaixement = $dataNaixement;
+    }
+
     function save(){
         $query = "INSERT INTO `phpbasic`.`usuari`(`id`,`username`,`pass`,`email`,`sexe`, `provincia`, `foto`)
                  VALUES (NULL, '{$this->userName}', '{$this->pass}', '{$this->email}', '{$this->sexe}', '{$this->provincia}', '{$this->fotoPerfil}')";
@@ -161,7 +171,7 @@ class Usuari {
         }
     }
     
-    function _load(){
+    private function _load(){
         $query = "SELECT * FROM `phpbasic`.`usuari` WHERE `id`='{$this->id}'";
         $db = new JediBookBD();
         $var = $db->selectSQL($query);
@@ -174,6 +184,7 @@ class Usuari {
             $this->setSexe((boolean) $var[0]['sexe']);
             $this->setProvincia($var[0]['provincia']);
             $this->setFotoPerfil($var[0]['foto']);
+            $this->setDataNaixement($var[0]['datanaixement']);
         }
     }  
     
