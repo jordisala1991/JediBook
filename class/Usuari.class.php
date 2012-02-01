@@ -130,7 +130,10 @@ class Usuari {
     function update(){
         if(!isset($this->id))  throw new JediBookException("el usuari no esta registrat al sistema");
         else {
-            $query = "UPDATE `phpbasic`.`usuari` SET `pass`='{$this->pass}',`sexe`=NULL,`provincia`='{$this->provincia}',`foto`='{$this->fotoPerfil}' WHERE `id`= '{$this->id}'";
+            if(($sexe = "'".$this->sexe."'") == "'null'") $sexe = "NULL";
+            if(($pass = "'".$this->pass."'") == "'null'") $pass = "NULL";
+            if(($provincia = "'".$this->provincia."'") == "'null'") $provincia = "NULL";
+            $query = "UPDATE `phpbasic`.`usuari` SET `pass`=$pass,`sexe`=$sexe,`provincia`=$provincia,`foto`='{$this->fotoPerfil}' WHERE `id`='{$this->id}'";
             $db = new JediBookBD();
             $db->updateSQL($query);
             $db->close();
