@@ -35,7 +35,6 @@ class Usuari {
         else throw new JediBookException("num parametres incorrecte");
     }
 
-
     function getId(){
         return $this->id;
     }
@@ -113,7 +112,6 @@ class Usuari {
         }
         
     }
-    
     
     function delete(){
         if(!isset($this->id))  throw new JediBookException("l'usuari no esta registrat");
