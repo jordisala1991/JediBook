@@ -74,6 +74,8 @@ and open the template in the editor.
             #registre {
                 font-family: tahoma;
                 text-align: right;
+                padding-top:20px;
+                padding-bottom:20px;
             }
             
             .minimal {
@@ -119,6 +121,7 @@ and open the template in the editor.
 
             #registre fieldset {
                 text-align: left;
+                margin-bottom: 20px;
             }
             
             #registre legend{
