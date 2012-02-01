@@ -88,7 +88,7 @@ class Usuari {
     }
     
     function setSexe($sexe){
-        //if(!is_bool($sexe))throw new JediBookException("sexe incorrecte");
+        if(!is_bool($sexe) and isset($sexe))throw new JediBookException("sexe incorrecte");
         $this->sexe = $sexe;
     }
     
@@ -128,24 +128,22 @@ class Usuari {
     }
     
     function update(){
-        if(!isset($this->id))  throw new JediBookException("la foto no esta registrada al sistema");
+        if(!isset($this->id))  throw new JediBookException("el usuari no esta registrat al sistema");
         else {
-            $query = "UPDATE `phpbasic`.`usuari` SET (`pass`='{$this->pass}', `sexe`='{$this->sexe}', `provincia`='{$this->provincia}',`foto`='{$this->fotoPerfil}') WHERE `id`= '{$this->id}'";
+            $query = "UPDATE `phpbasic`.`usuari` SET `pass`='{$this->pass}',`sexe`=NULL,`provincia`='{$this->provincia}',`foto`='{$this->fotoPerfil}' WHERE `id`= '{$this->id}'";
             $db = new JediBookBD();
-            $db->deleteSQL($query);
+            $db->updateSQL($query);
             $db->close();
-            $this->id = NULL;
         }
     }
    
    function afegirAmic($idAmic){
         if(!isset($this->id)) throw new JediBookException("usuari no registrat");
         else {
-            $query = "INSERT INTO `phpbasic`.`amics`(`id_usuari`, `id_amic`) VALUES ('{$this->id}', '{$idAmic}')";
+            $query = "INSERT `phpbasic`.`amics`(`id_usuari`, `id_amic`) VALUES ('{$this->id}', '{$idAmic}'),('{$idAmic}','{$this->id}')";
             $db = new JediBookBD();
             $db->insertSQL($query);
             $db->close();
-            $nouAmic->afegirAmic($this);
         }
     }
     
@@ -154,19 +152,11 @@ class Usuari {
     function eliminarAmic($idAmic){
         if(!isset ($this->id)) throw new JediBookException("no esta registrat");
         else {
-            $query = "SELECT `id_amic` FROM `phpbasic`.`amics` WHERE `id_usuari`='{$this->id}'";
+            $query = "DELETE FROM `phpbasic`.`amics` WHERE `id_usuari` IN ('{$this->id}','{$idAmic}')";
             $db = new JediBookBD();
-            $var = $db->selectSQL($query);
-            if($var == array()) {
-                $query2 = "DELETE FROM `phpbasic`.`amics` WHERE `id_usuari`='{$this->id}' AND `id_amic`='{$idAmic}'";
-                $db->deleteSQL($query2);
-                $db->close();
-            }
-            else {
-                $db->close();
-                throw new JediBookException("no són amics");
-            }
-            
+            $num = $db->deleteSQL($query);
+            $db->close();
+            if ($num == 0) throw new JediBookException("no són amics");
         }
     }
     
