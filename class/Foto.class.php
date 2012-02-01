@@ -74,7 +74,7 @@ class Foto {
     }
 
 
-    function setId($id){
+    private function _setId($id){
         if(!is_int($id) and isset($id)) throw new JediBookException("id foto incorrecte");
         else if($id < 0) throw new JediBookException("id foto incorrecte");
         else $this->id = $id;
@@ -89,35 +89,26 @@ class Foto {
         else $this->descripcio = $decripcio;
     }
     
-    function setFoto($foto){ 
+    private function _setFoto($foto){ 
         if(!is_string($foto)) throw new JediBookException("ruta foto icorrecte");
         else $this->foto = $foto;
     }
     
-    function setData($data){
+    private function _setData($data){
         $this->data = $data;
     }
     
-    function setVotsOK($votsOK){
+    private function _setVotsOK($votsOK){
         if(!is_int($votsOK) || $votsOK < 0) throw new JediBookException("votsOK incorrectes");
         else $this->votsOK = $votsOK;
     }
     
-    function setVotsKO($votsKO){
+    private function _setVotsKO($votsKO){
         if(!is_int($votsKO) || $votsKO < 0) throw new JediBookException("votsKO incorrectes");
         else $this->votsKO = $votsKO;
     }
     
-    function setComentaris($comentaris){
-       if(!is_array($comentaris)) throw new JediBookException("comentaris incorrectes");
-       else {
-           for ($i = 0;$i < count($comentaris);$i++) if(!($comentaris[$i] instanceof Comentari)) throw new JediBookException("no son comentaris");
-           $this->comentaris = $comentaris;
-       }
-       
-    }
-    
-    function setUsuari($usuari) {
+    private function _setUsuari($usuari) {
         if($usuari instanceof Usuari) $this->usuari = $usuari;
         else throw new JediBookException("usuar incorrecte");
     }

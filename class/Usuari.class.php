@@ -64,13 +64,13 @@ class Usuari {
         return $this->fotoPerfil;
     }
 
-    function setId($id){
+    private function _setId($id){
         if(!is_int($id) and isset($id)) throw new JediBookException("id Usuari incorrecte");
         else if($id < 0) throw new JediBookException("id Usuari incorrecte");
         else $this->id = $id;
     }
     
-    function setUserName($userName){
+    private function _setUserName($userName){
         if(!is_string($userName) || strlen($userName) < 3 || strlen($userName) >= 30) throw new JediBookException("username incorrecte");
         else $this->userName = $userName;
     }
@@ -82,14 +82,14 @@ class Usuari {
         else $this->pass = md5 ($pass);
     }
     
-    function setEmail($email){
+    private function _setEmail($email){
         if(!filter_var($email, FILTER_VALIDATE_EMAIL)) throw new JediBookException("email incorrecte");
         else $this->email = $email;
     }
     
     function setSexe($sexe){
-        if(!is_bool($sexe))throw new JediBookException("sexe incorrecte");
-        else $this->sexe = $sexe;
+        //if(!is_bool($sexe))throw new JediBookException("sexe incorrecte");
+        $this->sexe = $sexe;
     }
     
     function setProvincia($provincia){
