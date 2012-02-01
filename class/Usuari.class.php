@@ -140,7 +140,7 @@ class Usuari {
    
    function afegirAmic($nouAmic){
         if(!($nouAmic instanceof Usuari)) throw new JediBookException("es un amic k no es usuari");
-        else if(!isset($nouAmic->getId()) || !isset($this->id)) throw new JediBookException("usuaris no registrats");
+        else if(!isset($this->id)) throw new JediBookException("usuaris no registrats");
         else {
             $query = "INSERT INTO `phpbasic`.`amics`(`id_usuari`, `id_amic`) VALUES ('{$this->id}', '{$nouAmic->getid()}')";
             $db = new JediBookBD("localhost", "root", "", "phpbasic");
@@ -154,7 +154,7 @@ class Usuari {
     
     function eliminarAmic($amic){
         if(!($amic instanceof Usuari)) throw new JediBookException("no és del tipus usuari");
-        else if(!isset ($amic->getId()) || !isset ($this->id)) throw new JediBookException("no estan registrats");
+        else if(!isset ($this->id)) throw new JediBookException("no estan registrats");
         else {
             $query = "SELECT `id_amic` FROM `phpbasic`.`amics` WHERE `id_usuari`='{$this->id}'";
             $db = new JediBookBD("localhost", "root", "", "phpbasic");
