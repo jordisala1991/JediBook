@@ -20,14 +20,14 @@ class Usuari {
     function __construct() {
         $aux = func_get_args();
         if(func_num_args() == 1) {
-            $this->setId($aux[0]);
+            $this->_setId($aux[0]);
             $this->_load();
         }
         else if(func_num_args() == 7){
-            $this->setId($aux[0]);
-            $this->setUserName($aux[1]);
+            $this->_setId($aux[0]);
+            $this->_setUserName($aux[1]);
             $this->setPass($aux[2]);
-            $this->setEmail($aux[3]);
+            $this->_setEmail($aux[3]);
             $this->setSexe($aux[4]);
             $this->setProvincia($aux[5]);
             $this->setFotoPerfil($aux[6]);
@@ -139,7 +139,6 @@ class Usuari {
     }
    
    function afegirAmic($idAmic){
-        //if(!($nouAmic instanceof Usuari)) throw new JediBookException("es un amic k no es usuari");
         if(!isset($this->id)) throw new JediBookException("usuari no registrat");
         else {
             $query = "INSERT INTO `phpbasic`.`amics`(`id_usuari`, `id_amic`) VALUES ('{$this->id}', '{$idAmic}')";
@@ -153,7 +152,6 @@ class Usuari {
     
     
     function eliminarAmic($idAmic){
-        //if(!($amic instanceof Usuari)) throw new JediBookException("no és del tipus usuari");
         if(!isset ($this->id)) throw new JediBookException("no esta registrat");
         else {
             $query = "SELECT `id_amic` FROM `phpbasic`.`amics` WHERE `id_usuari`='{$this->id}'";
@@ -179,9 +177,9 @@ class Usuari {
         $db->close();
         if($var === array()) throw new JediBookException("no hi ha usuari amb aquest id");
         else {
-            $this->setUserName($var[0]['username']);
+            $this->_setUserName($var[0]['username']);
             $this->pass = $var[0]['pass'];
-            $this->setEmail($var[0]['email']);
+            $this->_setEmail($var[0]['email']);
             $this->setSexe((boolean) $var[0]['sexe']);
             $this->setProvincia($var[0]['provincia']);
             $this->setFotoPerfil($var[0]['foto']);

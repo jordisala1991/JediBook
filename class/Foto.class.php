@@ -25,17 +25,17 @@ class Foto {
     function __construct() {
         $aux = func_get_args();
         if(func_num_args() == 1) {
-            $this->setId($aux[0]);
+            $this->_setId($aux[0]);
             $this->_load();
         }
         else if(func_num_args() == 7){
-            $this->setId($aux[0]);
+            $this->_setId($aux[0]);
             $this->setDescripcio($aux[1]);
-            $this->setFoto($aux[2]);
-            $this->setData($aux[3]);
-            $this->setVotsOK($aux[4]);
-            $this->setVotsKO($aux[5]);
-            $this->setUsuari(new Usuari((int)$aux[6]));
+            $this->_setFoto($aux[2]);
+            $this->_setData($aux[3]);
+            $this->_setVotsOK($aux[4]);
+            $this->_setVotsKO($aux[5]);
+            $this->_setUsuari(new Usuari((int)$aux[6]));
         }
         else throw new JediBookException("num parametres incorrecte");
     }
@@ -126,7 +126,7 @@ class Foto {
                  VALUES (NULL, '{$this->descripcio}', '{$this->foto}', '{$this->data}', '{$this->votsOK}', '{$this->votsKO}', '{$this->usuari->getId()}')";
         if (isset($this->id)) throw new JediBookException("la foto ja esta a la bd");
         else {
-            $db = new JediBookBD("localhost", "root", "", "phpbasic");
+            $db = new JediBookBD();
             $this->id = $db->insertSQL($query);
             $db->close();
         }
@@ -137,7 +137,7 @@ class Foto {
         if(!isset($this->id))  throw new JediBookException("la foto no esta registrada al sistema");
         else {
             $query = "DELETE FROM `phpbasic`.`foto` WHERE `id`= '{$this->id}'";
-            $db = new JediBookBD("localhost", "root", "", "phpbasic");
+            $db = new JediBookBD();
             $db->deleteSQL($query);
             $db->close();
             $this->id = NULL;
@@ -149,7 +149,7 @@ class Foto {
         if(!isset($this->id))  throw new JediBookException("la foto no esta registrada al sistema");
         else {
             $query = "UPDATE `phpbasic`.`foto` SET (`descripcio`='{$this->descripcio}', `votsOK`='{$this->votsOK}', `votsKO`='{$this->votsKO}') WHERE `id`= '{$this->id}'";
-            $db = new JediBookBD("localhost", "root", "", "phpbasic");
+            $db = new JediBookBD();
             $db->deleteSQL($query);
             $db->close();
             $this->id = NULL;
@@ -158,17 +158,17 @@ class Foto {
     
     function _load(){
         $query = "SELECT * FROM `phpbasic`.`foto` WHERE `id`='{$this->id}'";
-        $db = new JediBookBD("localhost", "root", "", "phpbasic");
+        $db = new JediBookBD();
         $var = $db->selectSQL($query);
         $db->close();
         if($var === array()) throw new JediBookException("no hi ha foto amb aquest id");
         else {
             $this->setDescripcio($var[0]['descripcio']);
-            $this->setFoto($var[0]['foto']);
-            $this->setData($var[0]['data']);
-            $this->setVotsOK((int)$var[0]['votsOK']);
-            $this->setVotsKO((int)$var[0]['votsKO']);
-            $this->setUsuari(new Usuari((int)$var[0]['id_usuari']));
+            $this->_setFoto($var[0]['foto']);
+            $this->_setData($var[0]['data']);
+            $this->_setVotsOK((int)$var[0]['votsOK']);
+            $this->_setVotsKO((int)$var[0]['votsKO']);
+            $this->_setUsuari(new Usuari((int)$var[0]['id_usuari']));
         }
     }
     
