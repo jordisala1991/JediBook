@@ -109,7 +109,6 @@ class Usuari {
     
     private function _setDataNaixement($dataNaixement){
         $aux = explode("-", $dataNaixement);
-        var_dump($aux);
         if (!count($aux) == 3 or !checkdate($aux[1], $aux[2], $aux[0])) 
                 throw new JediBookException("La data de naixement es incorrecte");
         $this->dataNaixement = $dataNaixement;

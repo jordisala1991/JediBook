@@ -1,11 +1,6 @@
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
-<?php 
-
+<?php
 if(!isset($_GET['id'])) {
-    header('index.php');
+    header('Location: index.php');
 }
 else {
     include_once 'class/Usuari.class.php';
