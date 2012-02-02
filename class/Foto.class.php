@@ -65,9 +65,6 @@ class Foto {
         return $this->votsKO;
     }
     
-    function getComentaris(){
-        return $this->comentaris;
-    }
     
     function getUsuari(){
         return $this->usuari;
