@@ -8,6 +8,7 @@ and open the template in the editor.
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title></title>
         <link href="http://fonts.googleapis.com/css?family=Baloney" rel="stylesheet" type="text/css" />
+        <link type="text/css" rel="stylesheet" href="css/JediStyle.css"/>
         <style type="text/css">
             @font-face {
                 font-family: 'BaloneyRegular';
@@ -69,15 +70,35 @@ and open the template in the editor.
                 width:85%;
                 height: 400px;
             }
+            
+            #column_left #fotoPer{
+                padding-top: 15px;
+                text-align: center;
+            }
+            
+            #column_left #FerteAmic{
+                padding-top: 300px;
+                text-align: center;
+                
+            }
+            
+            #header #TancarSessio{
+                padding-top: 25px;
+                float: right;
+                
+            }
         </style>
     </head>
     <body>
         <div id="wrapper">
             <div id="header">
                 <div id="title">JediBook</div>
+                <div id="TancarSessio"><button type="button" class="minimal" name="desconectar">Desconnecta't</button></div>
             </div>
             <div id="main">
                 <div id="column_left">
+                    <div id="fotoPer"> <img src="ImatgesPerfil/p.jpg" alt="mail image" width="150" height="150" border="0" boder="0" />
+                    <div id="FerteAmic"><button type="button" class="minimal" name="ferteAmic">Fer-te amic</button></div>
                 </div>
                 <div id="column_right">
                 </div>
