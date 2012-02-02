@@ -1,11 +1,6 @@
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
 <?php 
-
 if(!isset($_GET['id'])) {
-    header('index.php');
+    header("Location: index.php");
 }
 else {
     include_once 'class/Usuari.class.php';
@@ -108,7 +103,7 @@ else {
                 <div id="column_left">
                     <div id="nomUsuari"><h3><?php echo $usuari->getUserName();?></h3></div>
                     <div id="fotoPer"> <img src="<?php echo $usuari->getFotoPerfil();?>" alt="mail image" width="150" height="150" border="0" boder="0" /></div>
-                    <div id="FerteAmic"><button type="button" class="minimal" name="ferteAmic">Fer-te amic</button></div>
+                    <div id="FerteAmic"><button type="button" class="minimal" name="ferteAmic" onClick="return afegirAmic();">Fer-te amic</button></div>
                 </div>
                 <div id="column_right">
                     <div id="titol"><h3>Fotos</h3></div>
@@ -121,7 +116,9 @@ else {
             </div>
         </div>
         <?php
-        // put your code here
+        function afegirAmic(){
+            
+        }
         ?>
     </body>
 </html>
