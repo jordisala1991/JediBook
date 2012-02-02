@@ -24,11 +24,11 @@ class GestioFotos {
     protected $esPerfil;
 
     function __construct($file, $esPerfil) {
-        $this->nom = $file[0];
-        $this->tipus = $file[1];
-        $this->rutaTemporal = $file[2];
-        $this->error = $file[3];
-        $this->tamany = $file[4];
+        $this->nom = $file['name'];
+        $this->tipus = $file['type'];
+        $this->rutaTemporal = $file['tmp_name'];
+        $this->error = $file['error'];
+        $this->tamany = $file['size'];
         $this->esPerfil = $esPerfil;
     }
     
