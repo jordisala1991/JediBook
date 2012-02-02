@@ -24,7 +24,7 @@ class Usuari {
             $this->_setId($aux[0]);
             $this->_load();
         }
-        else if(func_num_args() == 7){
+        else if(func_num_args() == 8){
             $this->_setId($aux[0]);
             $this->_setUserName($aux[1]);
             $this->setPass($aux[2]);
@@ -98,7 +98,7 @@ class Usuari {
     }
     
     function setProvincia($provincia){
-        if(!is_string($provincia)) throw new JediBookException("provincia incorrecta");
+        if(!is_string($provincia) and isset($provincia)) throw new JediBookException("provincia incorrecta");
         else $this->provincia = $provincia;
     }
     
@@ -108,6 +108,10 @@ class Usuari {
     }
     
     private function _setDataNaixement($dataNaixement){
+        $aux = explode("-", $dataNaixement);
+        var_dump($aux);
+        if (!count($aux) == 3 or !checkdate($aux[1], $aux[2], $aux[0])) 
+                throw new JediBookException("La data de naixement es incorrecte");
         $this->dataNaixement = $dataNaixement;
     }
 

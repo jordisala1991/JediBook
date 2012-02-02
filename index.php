@@ -14,8 +14,8 @@
                     <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data" onSubmit="return validaLoguin(this);">
                         <label for="nom_log" style="margin-left:2px">usuari</label>
                         <label for="pass_log" style="margin-left:125px">contrasenya</label><br/>
-                        <input type="text" name="nom" id="nom_log"/>
-                        <input type="password" name="password" id="pass_log"/><br/>
+                        <input type="text" name="nom_log" id="nom_log"/>
+                        <input type="password" name="pass_log" id="pass_log"/><br/>
                         <input type="checkbox" name="conexio" value="conectat" id="conexio"/>
                         <label for="conexio">Mantén-me connectat</label>
                         <input type="submit" class="minimal" name="submit" value ="Inicia sessió"/>
@@ -224,7 +224,24 @@
             </div>
         </div>
         <?php
-        // put your code here
+            include_once "class/Usuari.class.php";
+            include_once "class/GestioFotos.class.php";
+            
+            if (isset($_POST["submit"])) {
+                $nom = mysql_real_escape_string($_POST["username"]);
+                $pass = mysql_real_escape_string($_POST["pass"]);
+                $email = mysql_real_escape_string($_POST["email"]);
+                $sexe = mysql_real_escape_string($_POST["sexe"]);
+                $provincia = mysql_real_escape_string($_POST["provincia"]);
+                $dataNaixement = mysql_real_escape_string($_POST["any"]."-".$_POST["mes"]."-".$_POST["dia"]);
+                if ($sexe == "Home") $sexe = true;
+                else if ($sexe == "Dona") $sexe = false;
+                else $sexe = null;
+                if ($provincia == "0") $provincia = null;
+                $gf = new GestioFotos($_FILES["foto"], true);
+                $u = new Usuari(null, $nom, $pass, $email, $sexe, $provincia, $gf->save(), $dataNaixement);
+                $u->save();
+            }
         ?>
     </body>
 </html>
