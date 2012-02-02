@@ -2,6 +2,16 @@
 To change this template, choose Tools | Templates
 and open the template in the editor.
 -->
+<?php 
+
+if(!isset($_GET['id'])) {
+    header('index.php');
+}
+else {
+    include_once 'class/Usuari.class.php';
+    $usuari = new Usuari((int)$_GET['id']);
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -96,8 +106,8 @@ and open the template in the editor.
             </div>
             <div id="main">
                 <div id="column_left">
-                    <div id="nomUsuari"><h3>Nom Usuari</h3></div>
-                    <div id="fotoPer"> <img src="ImatgesPerfil/p.jpg" alt="mail image" width="150" height="150" border="0" boder="0" /></div>
+                    <div id="nomUsuari"><h3><?php echo $usuari->getUserName();?></h3></div>
+                    <div id="fotoPer"> <img src="<?php echo $usuari->getFotoPerfil();?>" alt="mail image" width="150" height="150" border="0" boder="0" /></div>
                     <div id="FerteAmic"><button type="button" class="minimal" name="ferteAmic">Fer-te amic</button></div>
                 </div>
                 <div id="column_right">

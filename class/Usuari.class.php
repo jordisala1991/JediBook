@@ -184,7 +184,7 @@ class Usuari {
             $this->setSexe((boolean) $var[0]['sexe']);
             $this->setProvincia($var[0]['provincia']);
             $this->setFotoPerfil($var[0]['foto']);
-            $this->setDataNaixement($var[0]['datanaixement']);
+            $this->_setDataNaixement($var[0]['datanaixement']);
         }
     }  
     
