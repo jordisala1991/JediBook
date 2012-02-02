@@ -47,7 +47,8 @@ class GestioFotos {
                 }
             }
         }
-        return false; 
+        if ($this->esPerfil) return RUTA_FOTOS_PERFIL."defecte.jpg";
+        return false;
     }
     
     

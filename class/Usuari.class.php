@@ -115,8 +115,8 @@ class Usuari {
     }
 
     function save(){
-        $query = "INSERT INTO `phpbasic`.`usuari`(`id`,`username`,`pass`,`email`,`sexe`, `provincia`, `foto`)
-                 VALUES (NULL, '{$this->userName}', '{$this->pass}', '{$this->email}', '{$this->sexe}', '{$this->provincia}', '{$this->fotoPerfil}')";
+        $query = "INSERT INTO `phpbasic`.`usuari`(`id`,`username`,`pass`,`email`,`sexe`, `provincia`, `foto`, `datanaixement`)
+                 VALUES (NULL, '{$this->userName}', '{$this->pass}', '{$this->email}', '{$this->sexe}', '{$this->provincia}', '{$this->fotoPerfil}', '{$this->dataNaixement}')";
         if (isset($this->id)) throw new JediBookException("l'usuari ja esta a la bd");
         else {
             $db = new JediBookBD();

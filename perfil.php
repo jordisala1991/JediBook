@@ -1,17 +1,50 @@
 <?php 
-if(!isset($_GET['id'])) {
-    header("Location: index.php");
-}
-else {
     include_once 'class/Usuari.class.php';
-    $usuari = new Usuari((int)$_GET['id']);
-}
+    include_once 'class/JediBookException.class.php';
+
+    session_name("loguejat");
+    session_start();
+    
+    if(!isset($_SESSION["id"]) and isset($_COOKIE["id"])) $_SESSION["id"] = $_COOKIE["id"];
+
+    if(!isset($_GET['id'])) {
+        if (isset($_SESSION["id"])) header("Location: perfil.php?id=".$_SESSION["id"]);
+        else header("Location: index.php");
+    }
+    else {
+        try {
+            $usuari = new Usuari((int)$_GET['id']);
+        } catch (JediBookException $e) {
+            if (isset($_SESSION["id"]) and $_SESSION["id"] == $_GET["id"]) {
+                $_SESSION = array();
+                session_destroy();
+                setcookie("id", null, -1);
+                header("Location: index.php");
+            }
+            else if (isset($_SESSION["id"])) header("Location: perfil.php?id=".$_SESSION["id"]);
+        }
+    }
+    
+    if (isset($_POST["loguin"]) and isset($_POST["nom_log"]) and isset($_POST["pass_log"])) {
+        $username = mysql_real_escape_string($_POST["nom_log"]);
+        $password = mysql_real_escape_string($_POST["pass_log"]);
+        $bd = new JediBookBD();
+        $myid = $bd->estaRegistrat($username, md5($password));
+        $bd->close();
+        if ($myid) {
+            $_SESSION["id"] = $myid;
+            if (isset($_POST["conexio"])) {
+                setcookie("id", $myid, time() + 3600);
+            }
+            header("Location: perfil.php?id=".$_SESSION[id]);
+        }   
+    }
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title></title>
+        <title>JediBook</title>
         <link type="text/css" rel="stylesheet" href="css/JediStyle.css"/>
         
     </head>
@@ -19,8 +52,28 @@ else {
         <div id="wrapper">
             <div id="header">
                 <div id="title">JediBook</div>
-                <div id="TancarSessio"><button type="button" class="minimal" name="desconectar">Desconnecta't</button></div>
-            </div>
+                <?php
+                    if (!isset($_SESSION["id"])) {
+                        echo '<div id="loguin">';
+                        echo '<form action="index.php" method="post" onSubmit="return validaLoguin(this)">';
+                        echo '<label for="nom_log" style="margin-left:2px">usuari</label>';
+                        echo '<label for="pass_log" style="margin-left:125px">contrasenya</label><br/>';
+                        echo '<input type="text" name="nom_log" id="nom_log">';
+                        echo '<input type="password" name="pass_log" id="pass_log"><br/>';
+                        echo '<input type="checkbox" name="conexio" value="conectat" id="conexio">';
+                        echo '<label for="conexio">Mantén-me connectat</label>';
+                        echo '<input type="submit" class="minimal" name="loguin" value="Inicia sessió">';
+                        echo '</form>';
+                        echo '</div>';
+                    }
+                    else {
+                        echo '<div id="TancarSessio">';
+                        echo '<form action="index.php" method="post">';
+                        echo '<input type="submit" class="minimal" name="desconectar" value="Desconecta\'t"></div>';
+                        echo '</form>';
+                    }
+                ?>
+                </div>
             <div id="main">
                 <div id="column_left">
                     <div id="nomUsuari"><h3><?php echo $usuari->getUserName();?></h3></div>

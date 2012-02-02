@@ -2,7 +2,24 @@
     include_once "class/Usuari.class.php";
     include_once "class/GestioFotos.class.php";
     include_once "class/JediBookBD.class.php";
-
+    
+    session_name("loguejat");
+    session_start();
+    
+    if(isset($_POST["desconectar"])) {
+        $_SESSION = array();
+        session_destroy();
+        setcookie("id", null, -1);
+    }   
+    
+    if(isset($_SESSION["id"])) {
+        header("Location: perfil.php?id=".$_SESSION["id"]);
+    }
+    else if(isset($_COOKIE["id"])) {
+        $_SESSION["id"] = $_COOKIE["id"];
+        header("Location: perfil.php?id=".$_SESSION["id"]);
+    }
+    
     if (isset($_POST["submit"])) {
         $nom = mysql_real_escape_string($_POST["username"]);
         $pass = mysql_real_escape_string($_POST["pass"]);
@@ -17,20 +34,23 @@
         $gf = new GestioFotos($_FILES["foto"], true);
         $u = new Usuari(null, $nom, $pass, $email, $sexe, $provincia, $gf->save(), $dataNaixement);
         $u->save();
+        $_SESSION["id"] = $u->getId();
+        header("Location: perfil.php?id=".$u->getId());
     }
     
-    if ( isset( $_GET["action"] ) and $_GET["action"] == "login" ) {
-        $username = mysql_real_escape_string($_GET["nom_log"]);
-        $password = mysql_real_escape_string($_GET["pass_log"]);
+    if (isset($_POST["loguin"]) and isset($_POST["nom_log"]) and isset($_POST["pass_log"])) {
+        $username = mysql_real_escape_string($_POST["nom_log"]);
+        $password = mysql_real_escape_string($_POST["pass_log"]);
         $bd = new JediBookBD();
-        if (($myid = $bd->estaRegistrat($username, md5($password)))) {
-            session_name("loguejat");
-            session_start();
-            $_SESSION['idlog'] = $myid;
-            $bd->close();
-            header("Location: perfil.php");
-        }
-        $bd->close();    
+        $myid = $bd->estaRegistrat($username, md5($password));
+        $bd->close();
+        if ($myid) {
+            $_SESSION["id"] = $myid;
+            if (isset($_POST["conexio"])) {
+                setcookie("id", $myid, time() + 3600);
+            }
+            header("Location: perfil.php?id=".$_SESSION[id]);
+        }   
     }
 ?>
 <!DOCTYPE html>
@@ -46,8 +66,7 @@
             <div id="header">
                 <div id="title">JediBook</div>
                 <div id="loguin">
-                    <form action="index.php" method="get" onSubmit="return validaLoguin(this)">
-                        <input type="hidden" name="action" value="login">
+                    <form action="index.php" method="post" onSubmit="return validaLoguin(this)">
                         <label for="nom_log" style="margin-left:2px">usuari</label>
                         <label for="pass_log" style="margin-left:125px">contrasenya</label><br/>
                         <input type="text" name="nom_log" id="nom_log">
