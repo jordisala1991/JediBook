@@ -120,10 +120,5 @@
             <div id="footer">
             </div>
         </div>
-        <?php
-        function afegirAmic(){
-            
-        }
-        ?>
     </body>
 </html>
