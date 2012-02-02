@@ -39,6 +39,16 @@
             header("Location: perfil.php?id=".$_SESSION[id]);
         }   
     }
+    
+    if (isset($_POST["ferteAmic"])) {
+        $u = new Usuari((int) $_SESSION["id"]);
+        $u->afegirAmic((int) $_GET["id"]);
+    }
+    
+    if (isset($_POST["esborrarAmic"])) {
+        $u = new Usuari((int) $_SESSION["id"]);
+        $u->eliminarAmic((int) $_GET["id"]);
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -78,7 +88,27 @@
                 <div id="column_left">
                     <div id="nomUsuari"><h3><?php echo $usuari->getUserName();?></h3></div>
                     <div id="fotoPer"> <img src="<?php echo $usuari->getFotoPerfil();?>" alt="mail image" width="150" height="150" border="0" boder="0" /></div>
-                    <div id="FerteAmic"><button type="button" class="minimal" name="ferteAmic" onClick="return afegirAmic();">Fer-te amic</button></div>
+                    <?php
+                        if (isset($_SESSION["id"]) and $_SESSION["id"] != $_GET["id"]) {
+                            $bd = new JediBookBD();
+                            $var = $bd->sonAmics($_SESSION["id"], $_GET["id"]);
+                            $bd->close();
+                            if (!$var) {
+                                echo '<div id="FerteAmic">';
+                                echo '<form action="perfil.php?id='.$_GET["id"].'" method="post">';
+                                echo '<input type="submit" class="minimal" name="ferteAmic" value="Fer-te amic">';
+                                echo '</form>';
+                                echo '</div>';
+                            }
+                            else {
+                                echo '<div id="EsborrarAmic">';
+                                echo '<form action="perfil.php?id='.$_GET["id"].'" method="post">';
+                                echo '<input type="submit" class="minimal" name="esborrarAmic" value="Esborrar Amic">';
+                                echo '</form>';
+                                echo '</div>';
+                            }
+                        }
+                    ?>
                 </div>
                 <div id="column_right">
                     <div id="titol"><h3>Fotos</h3></div>

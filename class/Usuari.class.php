@@ -154,7 +154,7 @@ class Usuari {
    function afegirAmic($idAmic){
         if(!isset($this->id)) throw new JediBookException("usuari no registrat");
         else {
-            $query = "INSERT `phpbasic`.`amics`(`id_usuari`, `id_amic`) VALUES ('{$this->id}', '{$idAmic}'),('{$idAmic}','{$this->id}')";
+            $query = "INSERT INTO `phpbasic`.`amics` (`id_usuari`, `id_amic`) VALUES ('{$this->id}', '{$idAmic}')";
             $db = new JediBookBD();
             $db->insertSQL($query);
             $db->close();

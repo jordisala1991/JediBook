@@ -62,6 +62,12 @@ class JediBookBD {
         return $res3;
     }
     
+    function sonAmics($idUsuari, $idAmic) {
+        $query = "SELECT * FROM `phpbasic`.`amics` WHERE `id_usuari`='{$idUsuari}' AND `id_amic`='{$idAmic}'";
+        $res = $this->selectSQL($query);
+        return !($res === array());
+    }
+    
     function getFotos($idUsuari) {
         $query = "SELECT * FROM `phpbasic`.`foto` WHERE `id_usuari`='{$idUsuari}'";
         $res = $this->selectSQL($query);
