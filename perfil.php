@@ -7,77 +7,58 @@ and open the template in the editor.
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title></title>
-        <link href="http://fonts.googleapis.com/css?family=Baloney" rel="stylesheet" type="text/css" />
         <link type="text/css" rel="stylesheet" href="css/JediStyle.css"/>
         <style type="text/css">
-            @font-face {
-                font-family: 'BaloneyRegular';
-                src: url('fonts/baloney_-webfont.eot');
-                src: url('fonts/baloney_-webfont.eot?#iefix') format('embedded-opentype'),
-                    url('fonts/baloney_-webfont.woff') format('woff'),
-                    url('fonts/baloney_-webfont.ttf') format('truetype'),
-                    url('fonts/baloney_-webfont.svg#BaloneyRegular') format('svg');
-                font-weight: normal;
-                font-style: normal;
-
-            }
-            body {
-                padding: 0;
-                margin:0;
-            }
-            #wrapper {
-                width: auto;
-                height: 100%;
-                margin: auto;
-
-            }
-            #header {
-                background-color: #222028;
-                width: auto;
-                height: 80px;
-                padding: 5px;
-            }
-            #title {
-                font-family: 'BaloneyRegular';
-                font-size: 40px;
-                color: white;
-                padding-top: 18px;
-                padding-left: 45px;
-            }
+            
+            
             #main {
                 padding: 20px;
-                width:100%;
                 overflow:hidden;
                 height:auto;
-                background-color:#FFF8D3; 
+                background-color:#FFF8D3;
             }
             #column_left {
                 width:15%;
                 background: -moz-linear-gradient(top, #2F3837, #FFF8D3);
                 background: -webkit-gradient(linear, 0 0, 0 100%, from(#2F3837),  to(#FFF8D3));
-                height:500px;
+                height:auto;
                 float:left;
                 border-radius: 10px;  
                 -moz-border-radius:10px;  
                 -webkit-border-radius:10px;
                 -webkit-box-shadow: 2px 2px 5px #999;
                 -moz-box-shadow: 2px 2px 5px #999;
-                filter: shadow(color=#999999, direction=135, strength=2);                    
+                filter: shadow(color=#999999, direction=135, strength=2);
                 box-shadow: 2px 2px 5px #999;
+                margin-right: 20px;
+                padding-bottom: 10px;
             }
            
-            #colum_right {
-                width:85%;
-                height: 400px;
+            #column_right {
+                width:60%;
+                background: -moz-linear-gradient(top, #2F3837, #FFF8D3);
+                background: -webkit-gradient(linear, 0 0, 0 100%, from(#2F3837),  to(#FFF8D3));
+                border-radius: 10px;  
+                -moz-border-radius:10px;  
+                -webkit-border-radius:10px;
+                -webkit-box-shadow: 2px 2px 5px #999;
+                -moz-box-shadow: 2px 2px 5px #999;
+                filter: shadow(color=#999999, direction=135, strength=2);
+                box-shadow: 2px 2px 5px #999;
+                height: auto;
+                float: left;
+                text-align: center; 
+                margin-left: 150px;
+                padding-bottom: 10px;
+                    
             }
             
             #column_left #fotoPer{
-                padding-top: 15px;
+                padding-top: 5px;
                 text-align: center;
             }
             
             #column_left #FerteAmic{
-                padding-top: 300px;
                 text-align: center;
                 
             }
@@ -86,6 +67,24 @@ and open the template in the editor.
                 padding-top: 25px;
                 float: right;
                 
+            }
+            
+            #column_left #nomUsuari{
+                padding-top: 5px;
+                text-align: center;
+                color: white;
+            }
+            
+            #column_right #titol{
+                padding-top: 5px;
+                text-align: center;
+                color: white;
+            }
+            
+            #column_right .foto{
+                padding-bottom: 30px;
+                margin-left: auto;
+                margin-right: auto;
             }
         </style>
     </head>
@@ -97,10 +96,14 @@ and open the template in the editor.
             </div>
             <div id="main">
                 <div id="column_left">
-                    <div id="fotoPer"> <img src="ImatgesPerfil/p.jpg" alt="mail image" width="150" height="150" border="0" boder="0" />
+                    <div id="nomUsuari"><h3>Nom Usuari</h3></div>
+                    <div id="fotoPer"> <img src="ImatgesPerfil/p.jpg" alt="mail image" width="150" height="150" border="0" boder="0" /></div>
                     <div id="FerteAmic"><button type="button" class="minimal" name="ferteAmic">Fer-te amic</button></div>
                 </div>
                 <div id="column_right">
+                    <div id="titol"><h3>Fotos</h3></div>
+                    <div class="foto"> <img src="Imatges/foto2.jpg" alt="mail image" width="300" height="300" border="0" boder="0" /></div>
+                    <div class="foto"> <img src="Imatges/foto3.jpg" alt="mail image" width="300" height="300" border="0" boder="0" /></div>
                 </div>
                 <br style="clear:both;">
             </div>
