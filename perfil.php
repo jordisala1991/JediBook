@@ -1,6 +1,7 @@
 <?php 
     include_once 'class/Usuari.class.php';
     include_once 'class/JediBookException.class.php';
+    include_once 'class/GestioFotos.class.php';
 
     session_name("loguejat");
     session_start();
@@ -49,6 +50,15 @@
         $u = new Usuari((int) $_SESSION["id"]);
         $u->eliminarAmic((int) $_GET["id"]);
     }
+    
+    if (isset($_POST["pujaFoto"])) {
+        $gf = new GestioFotos($_FILES["novaFoto"], false);
+        $ruta = $gf->save();
+        $now = getdate();
+        $data = $now["year"]."-".$now["mon"]."-".$now["mday"];
+        $f = new Foto(null, $_POST["descripcio"], $ruta, $data, 0, 0, (int) $_SESSION["id"]);
+        $f->save();
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -56,7 +66,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JediBook</title>
         <link type="text/css" rel="stylesheet" href="css/JediStyle.css"/>
-        
+        <script type="text/javascript" src="javascript/comprovacioRegistre.js"></script>
     </head>
     <body>
         <div id="wrapper">
@@ -79,8 +89,8 @@
                     else {
                         echo '<div id="TancarSessio">';
                         echo '<form action="index.php" method="post">';
-                        echo '<input type="submit" class="minimal" name="desconectar" value="Desconecta\'t"></div>';
-                        echo '</form>';
+                        echo '<input type="submit" class="minimal" name="desconectar" value="Desconecta\'t">';
+                        echo '</form></div>';
                     }
                 ?>
                 </div>
@@ -108,10 +118,30 @@
                                 echo '</div>';
                             }
                         }
+                        ?>
+                    <?php
+                        $bd = new JediBookBD();
+                        $amics = $bd->getAmics($usuari->getId());
+                        $bd->close();
+                        echo '<div id="Amics">';
+                        foreach($amics as $amic) echo '<a href="perfil.php?id='.$amic->getId().'">'.$amic->getUserName().'</a>';
+                        echo '</div>';
                     ?>
                 </div>
                 <div id="column_right">
                     <div id="titol"><h3>Fotos</h3></div>
+                    <?php
+                        if (isset($_SESSION["id"]) and $_GET["id"] == $_SESSION["id"]) {
+                            echo '<div id="sendFoto">';
+                            echo '<form action="perfil.php?id='.$_GET["id"].'" method="post" enctype="multipart/form-data">';
+                            echo '<label for="novaFoto">Selecciona Foto</label>';
+                            echo '<input type="file" name="novaFoto" id="novaFoto">';
+                            echo '<label for="descripcio">Descripcio</label>';
+                            echo '<textarea name="descripcio" cols="35" rows="6" id="descripcio"></textarea><br/>';
+                            echo '<input type="submit" class="minimal" name="pujaFoto" value="Pujar Foto">';
+                            echo '</form></div>';
+                        }
+                    ?>
                     <div class="foto"> <img src="Imatges/foto2.jpg" alt="mail image" width="300" height="300" border="0" boder="0" /></div>
                     <div class="foto"> <img src="Imatges/foto3.jpg" alt="mail image" width="300" height="300" border="0" boder="0" /></div>
                 </div>

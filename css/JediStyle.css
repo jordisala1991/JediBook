@@ -17,6 +17,25 @@
     font-style: normal;
 }
 
+a {
+    display:block;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #757575;
+    font-size: 20px;
+}
+a:link {
+    color: black;
+}
+a:visited {
+    color: black;
+}
+a:active {
+    color: #808080;
+}
+a:hover {
+    color: #DCDCDC;
+}
+
 body {
     padding: 0;
     margin:0;
@@ -202,6 +221,15 @@ body {
 
 }
 
+#column_right label {
+    display: block;
+}
+
+#column_right #sendFoto {
+    color: white;
+    padding-bottom: 25px;
+}
+
 #column_left #fotoPer{
     padding-top: 5px;
     text-align: center;
@@ -215,6 +243,11 @@ body {
 #column_left #EsborrarAmic{
     text-align: center;
 
+}
+
+#column_left #Amics {
+    padding-top: 10px;
+    padding-left: 15px;
 }
 
 #header #TancarSessio{
