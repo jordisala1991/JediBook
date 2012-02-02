@@ -46,14 +46,8 @@ body {
     float: left;
 }
 
-#main {
-    padding: 20px;
-    overflow:hidden;
-    height:auto;
-}
-
 #column {
-    margin:0 auto 0 auto;
+    margin:20px auto 20px auto;
     background-color: white;
     width:40%;
     padding: 20px;
@@ -161,3 +155,7 @@ float: right;
     margin-top: 5px;
 }
 
+#footer {
+    background-color: #222028;
+    height: 30px;
+}
