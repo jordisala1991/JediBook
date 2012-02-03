@@ -29,9 +29,9 @@
     if (isset($_POST["loguin"]) and isset($_POST["nom_log"]) and isset($_POST["pass_log"])) {
         $username = mysql_real_escape_string($_POST["nom_log"]);
         $password = mysql_real_escape_string($_POST["pass_log"]);
-        $bd = new JediBookBD();
-        $myid = $bd->estaRegistrat($username, md5($password));
-        $bd->close();
+        $bd4 = new JediBookBD();
+        $myid = $bd4->estaRegistrat($username, md5($password));
+        $bd4->close();
         if ($myid) {
             $_SESSION["id"] = $myid;
             if (isset($_POST["conexio"])) {
@@ -88,6 +88,7 @@
                     }
                     else {
                         echo '<div id="TancarSessio">';
+                        echo '<a href="perfil.php?id='.$_SESSION["id"].'">Anar a Perfil</a>';
                         echo '<form action="index.php" method="post">';
                         echo '<input type="submit" class="minimal" name="desconectar" value="Desconecta\'t">';
                         echo '</form></div>';
@@ -100,9 +101,9 @@
                     <div id="fotoPer"> <img src="<?php echo $usuari->getFotoPerfil();?>" alt="mail image" width="150" height="150" border="0" boder="0" /></div>
                     <?php
                         if (isset($_SESSION["id"]) and $_SESSION["id"] != $_GET["id"]) {
-                            $bd = new JediBookBD();
-                            $var = $bd->sonAmics($_SESSION["id"], $_GET["id"]);
-                            $bd->close();
+                            $bd3 = new JediBookBD();
+                            $var = $bd3->sonAmics($_SESSION["id"], $_GET["id"]);
+                            $bd3->close();
                             if (!$var) {
                                 echo '<div id="FerteAmic">';
                                 echo '<form action="perfil.php?id='.$_GET["id"].'" method="post">';
@@ -150,8 +151,13 @@
                             echo '</form></div>';
                         }
                     ?>
-                    <div class="foto"> <img src="Imatges/foto2.jpg" alt="mail image" width="300" height="300" border="0" boder="0" /></div>
-                    <div class="foto"> <img src="Imatges/foto3.jpg" alt="mail image" width="300" height="300" border="0" boder="0" /></div>
+                    <?php
+                        $bd2 = new JediBookBD();
+                        $fotos = $bd2->getFotos($usuari->getId());
+                        foreach ($fotos as $f) {
+                            echo '<a href="mostraFoto.php?id='.$f->getId().'"><img src="'.$f->getFoto().'" height="300" width="300"></a>';
+                        }
+                    ?>
                 </div>
                 <br style="clear:both;">
             </div>
