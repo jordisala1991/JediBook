@@ -42,23 +42,27 @@
                     <div id="titol"><h3>Foto</h3></div>
                     <div class="foto"><img src="<?php echo $foto->getFoto();?>" alt="mail image" width="500" height="500" border="0" boder="0" /></div>
                     <div id="descripcio"><label for="descripcio"><?php echo $foto->getDescripcio();?></label></div>
+                    <div id ="dataFoto"><label for="datafoto"><?php echo $foto->getData();?></label></div>
                     <?php
                         echo '<div id="votsOK">';
                         echo '<form action="mostraFoto.php?id='.$_GET["id"].'" method="post">';
                         echo '<input type="submit" class="minimal" name="votsOK" value="VotsOK">';
                         echo '</form>';
                         echo '</div>';
+                        echo $foto->getVotsOK();
                     ?>
+                    
                     <?php 
                         echo '<div id="votsKO">';
                         echo '<form action="mostraFoto.php?id='.$_GET["id"].'" method="post">';
                         echo '<input type="submit" class="minimal" name="votsKO" value="VotsKO">';
                         echo '</form>';
                         echo '</div>';
+                        echo $foto->getVotsKO();
                     
                     ?>
                     <?php 
-                        for ($i = 0; $i < sizeof($comentaris); ++$i){
+                        for ($i = 0; $i < sizeof($comentaris[0]); ++$i){
                                echo '<div class="comentari">';
                                $u = $comentaris[0][$i]->getUsuari();
                                echo '<p>';
