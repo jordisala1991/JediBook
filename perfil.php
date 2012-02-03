@@ -59,6 +59,14 @@
         $f = new Foto(null, $_POST["descripcio"], $ruta, $data, 0, 0, (int) $_SESSION["id"]);
         $f->save();
     }
+    
+    function myTruncate($string, $limit) {
+        if(strlen($string) <= $limit) return $string;
+        else {
+            $res = substr($string, 0, $limit);
+        }
+        return $res;
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -155,7 +163,11 @@
                         $bd2 = new JediBookBD();
                         $fotos = $bd2->getFotos($usuari->getId());
                         foreach ($fotos as $f) {
-                            echo '<a href="mostraFoto.php?id='.$f->getId().'"><img src="'.$f->getFoto().'" height="300" width="300"></a>';
+                            echo '<a href="mostraFoto.php?id='.$f->getId().'"><img src="'.$f->getFoto().'" height="300" width="300" class="foto"></a>';
+                            echo '<div class="descripcioC">';
+                            echo '<p>';
+                            $s = $f->getDescripcio();
+                            echo myTruncate($s, 10).'..';
                         }
                     ?>
                 </div>
