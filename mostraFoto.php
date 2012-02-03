@@ -12,21 +12,13 @@
         setcookie("id", null, -1);
         header("Location: index.php");
     }
-    
-    
+    else $foto = new Foto((int)$_GET['id']);
     
     if (!isset($_SESSION["id"]) and isset($_COOKIE["id"])) $_SESSION["id"] = $_COOKIE["id"];
     
     if(!isset($_GET['id'])) {
         if (isset($_SESSION["id"])) header ("Location: perfil.php?id=".$_SESSION["id"]);
         else header("Location: index.php");
-    }
-    
-    else {
-        $foto = new Foto((int)$_GET['id']);
-        $comentaris = array();
-        $bd = new JediBookBD();
-        $comentaris[] = $bd->getComentaris((int)$_GET['id']);
     }
 
     if(isset ($_POST['votsOK'])){
@@ -36,6 +28,13 @@
     if(isset ($_POST['votsKO'])){
         $foto->incrementaVotsKO();
         $foto->update();
+    }
+    if (isset($_POST["pujaComentari"])) {
+        $text = mysql_real_escape_string($_POST["text"]);
+        $data = getdate();
+        $now = $data["year"]."-".$data["mon"]."-".$data["mday"]." ".$data["hours"].":".$data["minutes"].":".$data["seconds"];
+        $c = new Comentari(null, $text, $now, (int) $_SESSION["id"], (int) $_GET["id"]);
+        $c->save();
     }
 
 ?>
@@ -114,6 +113,10 @@
                         echo $foto->getVotsKO();
                     ?>
                     <?php 
+                        $comentaris = array();
+                        $bd = new JediBookBD();
+                        $comentaris[] = $bd->getComentaris((int)$_GET['id']);
+                        
                         for ($i = 0; $i < sizeof($comentaris[0]); ++$i){
                                echo '<div class="comentari">';
                                $u = $comentaris[0][$i]->getUsuari();
@@ -130,6 +133,15 @@
                                echo '<br><br>';
                         }
                     ?>  
+                    <?php
+                        if (isset($_SESSION["id"])) {
+                            echo '<div id="sendComentari">';
+                            echo '<form action="mostraFoto.php?id='.$_GET["id"].'" method="post">';
+                            echo '<textarea name="text" cols="35" rows="4" id="text"></textarea><br/>';
+                            echo '<input type="submit" class="minimal" name="pujaComentari" value="Pujar Comentari">';
+                            echo '</form></div>';
+                        }
+                    ?>
                 </div>
                 <br style="clear:both;">
             </div>
