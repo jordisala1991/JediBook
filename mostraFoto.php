@@ -58,7 +58,7 @@
                     
                     ?>
                     <?php 
-                        for ($i = 0; $i < sizeof($comentaris); ++$i){
+                        for ($i = 0; $i < sizeof($comentaris[0]); ++$i){
                                echo '<div class="comentari">';
                                $u = $comentaris[0][$i]->getUsuari();
                                echo '<p>';
