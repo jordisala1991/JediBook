@@ -49,7 +49,7 @@
             if (isset($_POST["conexio"])) {
                 setcookie("id", $myid, time() + 3600);
             }
-            header("Location: perfil.php?id=".$_SESSION[id]);
+            header("Location: perfil.php?id=".$_SESSION["id"]);
         }   
     }
 ?>

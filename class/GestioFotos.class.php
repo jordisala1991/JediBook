@@ -24,12 +24,18 @@ class GestioFotos {
     protected $esPerfil;
 
     function __construct($file, $esPerfil) {
-        $this->nom = $file['name'];
-        $this->tipus = $file['type'];
-        $this->rutaTemporal = $file['tmp_name'];
-        $this->error = $file['error'];
-        $this->tamany = $file['size'];
-        $this->esPerfil = $esPerfil;
+        if (!isset($file)) {
+            $this->error = 1;
+            $this->esPerfil = $esPerfil;
+        }
+        else {
+            $this->nom = $file['name'];
+            $this->tipus = $file['type'];
+            $this->rutaTemporal = $file['tmp_name'];
+            $this->error = $file['error'];
+            $this->tamany = $file['size'];
+            $this->esPerfil = $esPerfil;
+        }
     }
     
     function save(){

@@ -145,6 +145,7 @@ class Usuari {
             if(($pass = "'".$this->pass."'") == "'null'") $pass = "NULL";
             if(($provincia = "'".$this->provincia."'") == "'null'") $provincia = "NULL";
             $query = "UPDATE `phpbasic`.`usuari` SET `pass`=$pass,`sexe`=$sexe,`provincia`=$provincia,`foto`='{$this->fotoPerfil}' WHERE `id`='{$this->id}'";
+            var_dump($query);
             $db = new JediBookBD();
             $db->updateSQL($query);
             $db->close();

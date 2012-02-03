@@ -118,6 +118,14 @@
                                 echo '</div>';
                             }
                         }
+                        else if (isset($_SESSION["id"])) {
+                            echo '<div id ="EditarPerfil">';
+                            echo '<form action="editarPerfil.php" method="post">';
+                            echo '<input type="hidden" name="idPerfil" value="'.$_SESSION["id"].'">';
+                            echo '<input type="submit" class="minimal" name="editarPerfil" value="Editar Perfil">';
+                            echo '</form>';
+                            echo '</div>';
+                        }
                         ?>
                     <?php
                         $bd = new JediBookBD();
