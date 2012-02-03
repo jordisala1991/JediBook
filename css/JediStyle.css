@@ -371,6 +371,15 @@ body {
                 padding-bottom: 10px;
                 
             }
+             
+            #columna .comentari{
+                width: 60%;
+                text-align: center;
+            }
+            #descripcio {
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
             
 #editar fieldset {
     text-align: left;
