@@ -168,6 +168,7 @@
                             echo '<p>';
                             $s = $f->getDescripcio();
                             echo myTruncate($s, 10).'..';
+                            echo '</div>';
                         }
                     ?>
                 </div>
